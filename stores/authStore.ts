@@ -20,11 +20,12 @@ export const useAuthStore = create<AuthState>(
       refreshToken: "",
       username: "",
       set: (auth) =>
-        set({
+        set((state) => ({
+          ...state,
           accessToken: auth.accessToken,
           refreshToken: auth.refreshToken,
           username: auth.username,
-        }),
+        })),
     }),
     { name: "auth-store" }
   )

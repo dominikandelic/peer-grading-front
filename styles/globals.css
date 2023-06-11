@@ -24,3 +24,8 @@ a {
     background: black;
   }
 }
+
+.plus-icon:hover {
+  color: black;
+  cursor: pointer;
+}

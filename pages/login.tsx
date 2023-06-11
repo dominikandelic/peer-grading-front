@@ -1,10 +1,8 @@
 import Head from "next/head";
 import { Form, Button, Container, Col, Row } from "react-bootstrap";
 import { SubmitHandler, useForm } from "react-hook-form";
-import Navigation from "../components/Navbar";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { useAuthStore } from "../stores/authStore";
-import { useEffect } from "react";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
 
@@ -37,16 +35,17 @@ const LoginPage = () => {
         accessToken: response.data.access,
         refreshToken: response.data.refresh,
       });
-      toast("Success!!");
+      toast.success("Success");
       router.push("/");
     } catch (e) {
-      console.log(e);
+      if (e instanceof AxiosError) {
+        toast.error(e.message);
+      }
     }
   };
 
   return (
     <>
-      <Navigation />
       <Container>
         <Head>
           <title>Login - Peer Grading</title>

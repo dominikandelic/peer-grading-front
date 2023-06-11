@@ -6,7 +6,6 @@ import Navigation from "../components/Navbar";
 export default function Home() {
   return (
     <>
-      <Navigation />
       <Head>
         <title>Peer Grading</title>
         <meta name="description" content="Peer grading meta desc..." />

@@ -6,10 +6,13 @@ import { useAuthStore } from "../stores/authStore";
 import { NavDropdown } from "react-bootstrap";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
+import useStore from "../hooks/useStore";
+import { mutate } from "swr";
 
 const LoggedInLinks = () => {
   const router = useRouter();
   const { set } = useAuthStore();
+
   return (
     <>
       <Link href="/courses" passHref legacyBehavior>
@@ -25,8 +28,8 @@ const LoggedInLinks = () => {
         <NavDropdown.Divider />
 
         <NavDropdown.Item
-          onClick={(e) => {
-            e.preventDefault();
+          onClick={async (e) => {
+            mutate(/* match all keys */ () => true, undefined, false);
             set({ accessToken: "", refreshToken: "", username: "" });
             toast.success("Success");
             router.push("/");
@@ -45,15 +48,20 @@ const PublicLinks = () => {
       <Link href="/login" passHref legacyBehavior>
         <Nav.Link>Login</Nav.Link>
       </Link>
-      <Link href="/register" passHref legacyBehavior>
-        <Nav.Link>Register</Nav.Link>
-      </Link>
+      <NavDropdown title="Register">
+        <Link href="/register/student" passHref legacyBehavior>
+          <NavDropdown.Item>Student</NavDropdown.Item>
+        </Link>
+        <Link href="/register/teacher" passHref legacyBehavior>
+          <NavDropdown.Item>Teacher</NavDropdown.Item>
+        </Link>
+      </NavDropdown>
     </>
   );
 };
 
 const Navigation = () => {
-  const { username } = useAuthStore();
+  const username = useStore(useAuthStore, (state) => state.username);
   return (
     <Navbar sticky="top" bg="dark" variant="dark">
       <Container>

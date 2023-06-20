@@ -11,6 +11,7 @@ export default function Home() {
         <meta name="description" content="Peer grading meta desc..." />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      <h1>Home</h1>
     </>
   );
 }

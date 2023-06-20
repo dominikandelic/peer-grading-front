@@ -4,14 +4,17 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import type { AppProps } from "next/app";
 import Layout from "../components/Layout";
+import { SSRProvider } from "react-bootstrap";
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
-      <Layout>
-        <Component {...pageProps} />
-        <ToastContainer />
-      </Layout>
+      <SSRProvider>
+        <Layout>
+          <Component {...pageProps} />
+          <ToastContainer />
+        </Layout>
+      </SSRProvider>
     </>
   );
 }

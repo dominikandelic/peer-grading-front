@@ -1,26 +1,23 @@
 import { Container, Row, Col } from "react-bootstrap";
 import Head from "next/head";
 import useProtectedRoute from "../../../hooks/useProtectedRoute";
-import { AiFillPlusCircle } from "react-icons/ai";
+import useUser from "../../../hooks/useUser";
+import TeacherCourseContent from "../../../components/courses/TeacherCourseContent";
+import StudentCourseContent from "../../../components/courses/StudentCourseContent";
 import { useRouter } from "next/router";
-import useCourse from "../../../hooks/useCourse";
-import useCourseTasks from "../../../hooks/useCourseTasks";
 
 const CourseDetailPage = () => {
   useProtectedRoute();
   const router = useRouter();
-  const { course, isError, isLoading } = useCourse(
-    Number(router.query.course_id)
-  );
-  const {
-    tasks,
-    isError: isErrorTask,
-    isLoading: isLoadingTask,
-  } = useCourseTasks(Number(router.query.course_id));
+  const courseId = Number(router.query.course_id);
+  const { user, isError, isLoading } = useUser();
+  if (isError) return "Error";
+  if (isLoading) return "Loading...";
+
   return (
     <>
       <Head>
-        <title>Tasks - Peer Grading</title>
+        <title>Course Details - Peer Grading</title>
         <meta name="description" content="Peer grading meta desc..." />
         <link rel="icon" href="/favicon.ico" />
       </Head>
@@ -30,41 +27,10 @@ const CourseDetailPage = () => {
             <h1>Course Details</h1>
           </Col>
         </Row>
-        {isError || (isErrorTask && <div>Error</div>)}
-        {isLoading || (isLoadingTask && <div>Loading...</div>)}
-        {course && tasks && (
-          <>
-            <Row>
-              <Col>Name: {course.name}</Col>
-            </Row>
-            <Row>
-              <h3>
-                Tasks:{" "}
-                <AiFillPlusCircle
-                  className="plus-icon"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    router.push(`/courses/${course.id}/tasks/add`);
-                  }}
-                />
-              </h3>
-            </Row>
-            {tasks.map((task) => (
-              <Row key={task.id}>
-                <a
-                  href="#"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    router.push(
-                      `/courses/${course.id}/tasks/${task.id}/submissions/add`
-                    );
-                  }}
-                >
-                  {task.name}
-                </a>
-              </Row>
-            ))}
-          </>
+        {user.is_teacher ? (
+          <TeacherCourseContent user={user} />
+        ) : (
+          <StudentCourseContent courseId={courseId} user={user} />
         )}
       </Container>
     </>

@@ -5,6 +5,8 @@ import useUser from "../../hooks/useUser";
 import { SubmitHandler, useForm } from "react-hook-form";
 import useAuthorizedAxios from "../../hooks/useAuthorizedAxios";
 import { toast } from "react-toastify";
+import useStore from "../../hooks/useStore";
+import { useAuthStore } from "../../stores/authStore";
 
 type EditProfileArgs = {
   firstName: string;
@@ -13,7 +15,10 @@ type EditProfileArgs = {
 
 const ProfileIndexPage = () => {
   useProtectedRoute();
+
+  const username = useStore(useAuthStore, (store) => store.username);
   const { user, isError, isLoading, mutate } = useUser();
+
   const { authorizedAxios } = useAuthorizedAxios();
   const {
     register,
@@ -21,6 +26,7 @@ const ProfileIndexPage = () => {
     watch,
     formState: { errors },
   } = useForm<EditProfileArgs>();
+  mutate();
 
   const onSubmit: SubmitHandler<EditProfileArgs> = async (data) => {
     try {
@@ -72,6 +78,16 @@ const ProfileIndexPage = () => {
                   {...register("lastName")}
                   type="text"
                   defaultValue={user.last_name}
+                />
+              </Form.Group>
+            </Row>
+            <Row>
+              <Form.Group className="mb-3">
+                <Form.Label>Role</Form.Label>
+                <Form.Control
+                  readOnly
+                  type="text"
+                  defaultValue={user.is_student ? "Student" : "Teacher"}
                 />
               </Form.Group>
             </Row>

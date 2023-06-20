@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 import useProtectedRoute from "../../hooks/useProtectedRoute";
 import useAuthorizedAxios from "../../hooks/useAuthorizedAxios";
 import useTeachers from "../../hooks/useTeachers";
+import { useAuthStore } from "../../stores/authStore";
 
 type CreateCourseArgs = {
   name: string;
@@ -23,6 +24,7 @@ const AddCoursePage = () => {
   } = useForm<CreateCourseArgs>();
   const { teachers, isError, isLoading } = useTeachers();
   const router = useRouter();
+  const auth = useAuthStore();
   const onSubmit: SubmitHandler<CreateCourseArgs> = async (data) => {
     try {
       const response = await authorizedAxios.post(
@@ -73,10 +75,10 @@ const AddCoursePage = () => {
                   {teachers &&
                     teachers.map((teacher) => {
                       return (
-                        <option
-                          key={teacher.id}
-                          value={teacher.id}
-                        >{`${teacher.first_name} ${teacher.last_name}`}</option>
+                        <option key={teacher.id} value={teacher.id}>
+                          {`${teacher.first_name} ${teacher.last_name}`}{" "}
+                          {teacher.username === auth.username && "(you)"}
+                        </option>
                       );
                     })}
                 </Form.Select>

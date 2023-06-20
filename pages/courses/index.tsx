@@ -5,9 +5,11 @@ import { useRouter } from "next/router";
 import useProtectedRoute from "../../hooks/useProtectedRoute";
 import useCourses from "../../hooks/useCourses";
 import { useMemo } from "react";
+import useUser from "../../hooks/useUser";
 
 const CoursesIndexPage = () => {
   useProtectedRoute();
+  const { user, isError: isErrorUser, isLoading: isLoadingUser } = useUser();
   const { courses, isError, isLoading } = useCourses();
   const router = useRouter();
 
@@ -43,18 +45,20 @@ const CoursesIndexPage = () => {
           <Col>
             <h1>
               Courses{" "}
-              <AiFillPlusCircle
-                className="plus-icon"
-                onClick={(e) => {
-                  e.preventDefault();
-                  router.push("/courses/add");
-                }}
-              />
+              {user && user.is_teacher && (
+                <AiFillPlusCircle
+                  className="plus-icon"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    router.push("/courses/add");
+                  }}
+                />
+              )}
             </h1>
           </Col>
         </Row>
-        {isError && <div>Error</div>}
-        {isLoading && <div>Loading</div>}
+        {(isError || isErrorUser) && <div>Error</div>}
+        {(isLoadingUser || isLoading) && <div>Loading</div>}
         {courses && CourseList}
       </Container>
     </>

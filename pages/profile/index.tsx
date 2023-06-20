@@ -16,7 +16,6 @@ type EditProfileArgs = {
 const ProfileIndexPage = () => {
   useProtectedRoute();
 
-  const username = useStore(useAuthStore, (store) => store.username);
   const { user, isError, isLoading, mutate } = useUser();
 
   const { authorizedAxios } = useAuthorizedAxios();
@@ -26,8 +25,6 @@ const ProfileIndexPage = () => {
     watch,
     formState: { errors },
   } = useForm<EditProfileArgs>();
-  mutate();
-
   const onSubmit: SubmitHandler<EditProfileArgs> = async (data) => {
     try {
       const response = await authorizedAxios.put(

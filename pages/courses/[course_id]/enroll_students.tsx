@@ -5,7 +5,6 @@ import { toast } from "react-toastify";
 import { useRouter } from "next/router";
 import useAuthorizedAxios from "../../../hooks/useAuthorizedAxios";
 import useProtectedRoute from "../../../hooks/useProtectedRoute";
-import useTeachers from "../../../hooks/useTeachers";
 import { useAuthStore } from "../../../stores/authStore";
 import useStudents from "../../../hooks/useStudents";
 

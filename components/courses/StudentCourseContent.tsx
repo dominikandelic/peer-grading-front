@@ -31,6 +31,11 @@ const StudentCourseContent = ({
             <Col>Name: {course.name}</Col>
           </Row>
           <Row>
+            <Col>
+              Teacher: {course.teacher.first_name} {course.teacher.last_name}
+            </Col>
+          </Row>
+          <Row>
             <h3>Tasks: </h3>
           </Row>
           {tasks.map((task) => (

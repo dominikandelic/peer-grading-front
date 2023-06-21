@@ -6,6 +6,8 @@ import { useRouter } from "next/router";
 import useProtectedRoute from "../../../../../../hooks/useProtectedRoute";
 import useAuthorizedAxios from "../../../../../../hooks/useAuthorizedAxios";
 import useTask from "../../../../../../hooks/useTask";
+import useStudentSubmissionChecker from "../../../../../../hooks/useHasSubmitted";
+import SubmissionContent from "../../../../../../components/submissions/SubmissionContent";
 
 type CreateSubmissionArgs = {
   file: FileList;
@@ -14,6 +16,11 @@ type CreateSubmissionArgs = {
 const AddSubmissionPage = () => {
   useProtectedRoute();
   const router = useRouter();
+  const {
+    hasSubmitted,
+    isError: isErrorSubmit,
+    isLoading: isLoadingSubmit,
+  } = useStudentSubmissionChecker(Number(router.query.task_id));
   const { authorizedAxios } = useAuthorizedAxios();
   const {
     register,
@@ -21,6 +28,7 @@ const AddSubmissionPage = () => {
     watch,
     formState: { errors },
   } = useForm<CreateSubmissionArgs>();
+
   const { task, isError, isLoading } = useTask(Number(router.query.task_id));
   const onSubmit: SubmitHandler<CreateSubmissionArgs> = async (data) => {
     try {
@@ -49,8 +57,12 @@ const AddSubmissionPage = () => {
       console.log(e);
     }
   };
-  if (isError) return <div>Error</div>;
-  if (isLoading) return <div>Loading...</div>;
+  if (isError || isErrorSubmit) return <div>Error</div>;
+  if (isLoading || isLoadingSubmit) return <div>Loading...</div>;
+
+  if (hasSubmitted) {
+    return <SubmissionContent taskId={task.id} />;
+  }
   return (
     <>
       <Head>
@@ -64,6 +76,8 @@ const AddSubmissionPage = () => {
             <h1>Add submission for - {task.name}</h1>
           </Col>
         </Row>
+        <Row>Task: {task.name}</Row>
+        <Row>Task details: Will go here</Row>
         <Col>
           <Form onSubmit={handleSubmit(onSubmit)}>
             <Row>

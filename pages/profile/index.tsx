@@ -83,6 +83,7 @@ const ProfileIndexPage = () => {
                 <Form.Label>Role</Form.Label>
                 <Form.Control
                   readOnly
+                  disabled
                   type="text"
                   defaultValue={user.is_student ? "Student" : "Teacher"}
                 />

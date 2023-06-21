@@ -4,29 +4,27 @@ import Navbar from "react-bootstrap/Navbar";
 import Link from "next/link";
 import { useAuthStore } from "../stores/authStore";
 import { NavDropdown } from "react-bootstrap";
-import { useRouter } from "next/router";
+import { NextRouter, useRouter } from "next/router";
 import { toast } from "react-toastify";
 import useStore from "../hooks/useStore";
 import { mutate } from "swr";
 
-const LoggedInLinks = () => {
-  const router = useRouter();
+const LoggedInLinks = ({ router }: { router: NextRouter }) => {
   const { set } = useAuthStore();
 
   return (
     <>
       <Link href="/courses" passHref legacyBehavior>
-        <Nav.Link>Courses</Nav.Link>
+        <Nav.Link active={router.pathname == "/courses"}>Courses</Nav.Link>
       </Link>
       <Link href="/tasks" passHref legacyBehavior>
-        <Nav.Link>Tasks</Nav.Link>
+        <Nav.Link active={router.pathname == "/tasks"}>Tasks</Nav.Link>
       </Link>
-      <NavDropdown title="Profile">
+      <NavDropdown active={router.pathname == "/profile"} title="Profile">
         <Link href="/profile" passHref legacyBehavior>
           <NavDropdown.Item>Details</NavDropdown.Item>
         </Link>
         <NavDropdown.Divider />
-
         <NavDropdown.Item
           onClick={async (e) => {
             mutate(/* match all keys */ () => true, undefined, false);
@@ -42,18 +40,22 @@ const LoggedInLinks = () => {
   );
 };
 
-const PublicLinks = () => {
+const PublicLinks = ({ router }: { router: NextRouter }) => {
   return (
     <>
       <Link href="/login" passHref legacyBehavior>
-        <Nav.Link>Login</Nav.Link>
+        <Nav.Link active={router.pathname == "/login"}>Login</Nav.Link>
       </Link>
       <NavDropdown title="Register">
         <Link href="/register/student" passHref legacyBehavior>
-          <NavDropdown.Item>Student</NavDropdown.Item>
+          <NavDropdown.Item active={router.pathname == "/register/student"}>
+            Student
+          </NavDropdown.Item>
         </Link>
         <Link href="/register/teacher" passHref legacyBehavior>
-          <NavDropdown.Item>Teacher</NavDropdown.Item>
+          <NavDropdown.Item active={router.pathname == "/register/teacher"}>
+            Teacher
+          </NavDropdown.Item>
         </Link>
       </NavDropdown>
     </>
@@ -62,6 +64,7 @@ const PublicLinks = () => {
 
 const Navigation = () => {
   const username = useStore(useAuthStore, (state) => state.username);
+  const router = useRouter();
   return (
     <Navbar sticky="top" bg="dark" variant="dark">
       <Container>
@@ -71,7 +74,11 @@ const Navigation = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            {username ? <LoggedInLinks /> : <PublicLinks />}
+            {username ? (
+              <LoggedInLinks router={router} />
+            ) : (
+              <PublicLinks router={router} />
+            )}
           </Nav>
         </Navbar.Collapse>
       </Container>

@@ -36,6 +36,9 @@ const TeacherCourseContent = ({ user }: TeacherCourseContentProps) => {
           <Row>
             <Col>Name: {course.name}</Col>
           </Row>
+          <Col>
+            Teacher: {course.teacher.first_name} {course.teacher.last_name}
+          </Col>
           <Row>
             <Col>
               {" "}
@@ -58,7 +61,7 @@ const TeacherCourseContent = ({ user }: TeacherCourseContentProps) => {
                 href="#"
                 onClick={(e) => {
                   e.preventDefault();
-                  router.push(`/students/${student.id}`);
+                  router.push(`/profile/${student.id}`);
                 }}
               >
                 {student.first_name} {student.last_name}

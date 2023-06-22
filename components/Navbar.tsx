@@ -15,7 +15,12 @@ const LoggedInLinks = ({ router }: { router: NextRouter }) => {
   return (
     <>
       <Link href="/courses" passHref legacyBehavior>
-        <Nav.Link active={router.pathname == "/courses"}>Courses</Nav.Link>
+        <Nav.Link active={router.pathname == "/courses"}>All Courses</Nav.Link>
+      </Link>
+      <Link href="/courses/my" passHref legacyBehavior>
+        <Nav.Link active={router.pathname == "/courses/my"}>
+          My Courses
+        </Nav.Link>
       </Link>
       <Link href="/tasks" passHref legacyBehavior>
         <Nav.Link active={router.pathname == "/tasks"}>Tasks</Nav.Link>
@@ -63,7 +68,8 @@ const PublicLinks = ({ router }: { router: NextRouter }) => {
 };
 
 const Navigation = () => {
-  const username = useStore(useAuthStore, (state) => state.username);
+  const user = useStore(useAuthStore, (state) => state.user);
+
   const router = useRouter();
   return (
     <Navbar sticky="top" bg="dark" variant="dark">
@@ -74,7 +80,7 @@ const Navigation = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            {username ? (
+            {user ? (
               <LoggedInLinks router={router} />
             ) : (
               <PublicLinks router={router} />

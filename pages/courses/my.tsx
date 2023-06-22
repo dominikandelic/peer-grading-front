@@ -1,23 +1,22 @@
 import { Col, Container, Row } from "react-bootstrap";
-import { AiFillPlusCircle } from "react-icons/ai";
-import Head from "next/head";
-import { useRouter } from "next/router";
-import useProtectedRoute from "../../hooks/useProtectedRoute";
-import useCourses from "../../hooks/useCourses";
-import { useMemo } from "react";
-import useUser from "../../hooks/useUser";
+import useMyCourses from "../../hooks/useMyCourses";
 import CourseList from "../../components/courses/CourseList";
+import useStore from "../../hooks/useStore";
+import { useAuthStore } from "../../stores/authStore";
+import { AiFillPlusCircle } from "react-icons/ai";
+import { useRouter } from "next/router";
+import Head from "next/head";
 
-const CoursesIndexPage = () => {
-  useProtectedRoute();
-  const { user, isError: isErrorUser, isLoading: isLoadingUser } = useUser();
-  const { courses, isError, isLoading } = useCourses();
+const MyCoursesPage = () => {
+  const { courses, isError, isLoading } = useMyCourses();
+  const user = useStore(useAuthStore, (store) => store.user);
   const router = useRouter();
-
+  if (isError) return "Error";
+  if (isLoading) return "Loading";
   return (
     <>
       <Head>
-        <title>All Courses - Peer Grading</title>
+        <title>My Courses - Peer Grading</title>
         <meta name="description" content="Peer grading meta desc..." />
         <link rel="icon" href="/favicon.ico" />
       </Head>
@@ -25,7 +24,7 @@ const CoursesIndexPage = () => {
         <Row>
           <Col>
             <h1>
-              All Courses{" "}
+              My Courses{" "}
               {user && user.is_teacher && (
                 <AiFillPlusCircle
                   className="plus-icon"
@@ -38,12 +37,10 @@ const CoursesIndexPage = () => {
             </h1>
           </Col>
         </Row>
-        {(isError || isErrorUser) && <div>Error</div>}
-        {(isLoadingUser || isLoading) && <div>Loading</div>}
         {courses && <CourseList courses={courses} />}
       </Container>
     </>
   );
 };
 
-export default CoursesIndexPage;
+export default MyCoursesPage;

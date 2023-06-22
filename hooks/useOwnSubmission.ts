@@ -4,10 +4,10 @@ import { useAuthStore } from "../stores/authStore";
 
 const useOwnSubmission = (taskId: number) => {
   const fetcher = useFetcher();
-  const username = useAuthStore((store) => store.username);
+  const user = useAuthStore((store) => store.user);
 
   const { data, error, isLoading } = useSWR(
-    `http://127.0.0.1:8000/api/tasks/${taskId}/${username}/submission`,
+    `http://127.0.0.1:8000/api/tasks/${taskId}/${user?.username}/submission`,
     fetcher
   );
 

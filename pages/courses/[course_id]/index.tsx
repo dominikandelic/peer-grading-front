@@ -5,14 +5,14 @@ import useUser from "../../../hooks/useUser";
 import TeacherCourseContent from "../../../components/courses/TeacherCourseContent";
 import StudentCourseContent from "../../../components/courses/StudentCourseContent";
 import { useRouter } from "next/router";
+import useStore from "../../../hooks/useStore";
+import { useAuthStore } from "../../../stores/authStore";
 
 const CourseDetailPage = () => {
   useProtectedRoute();
   const router = useRouter();
   const courseId = Number(router.query.course_id);
-  const { user, isError, isLoading } = useUser();
-  if (isError) return "Error";
-  if (isLoading) return "Loading...";
+  const user = useStore(useAuthStore, (store) => store.user);
 
   return (
     <>
@@ -27,7 +27,7 @@ const CourseDetailPage = () => {
             <h1>Course Details</h1>
           </Col>
         </Row>
-        {user.is_teacher ? (
+        {user && user.is_teacher ? (
           <TeacherCourseContent user={user} />
         ) : (
           <StudentCourseContent courseId={courseId} user={user} />

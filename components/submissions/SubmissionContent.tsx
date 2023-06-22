@@ -11,7 +11,7 @@ const SubmissionContent = ({ taskId }: SubmissionContentProps) => {
   if (isError) return "Error";
   if (isLoading) return "Loading";
 
-  const url = `http://localhost:8000${submission.file.replace("uploads/", "")}`;
+  const url = `http://localhost:8000${submission.file}`;
 
   return (
     <Container>

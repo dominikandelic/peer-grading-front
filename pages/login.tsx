@@ -30,7 +30,7 @@ const LoginPage = () => {
         }
       );
       set({
-        username: response.data.username,
+        user: response.data.user,
         accessToken: response.data.access,
         refreshToken: response.data.refresh,
       });

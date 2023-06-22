@@ -1,10 +1,11 @@
 import { StateCreator, create } from "zustand";
 import { persist, createJSONStorage, PersistOptions } from "zustand/middleware";
+import { User } from "../models/User";
 
 interface AuthState {
   accessToken: string;
   refreshToken: string;
-  username: string;
+  user: User | null;
   set: (auth: any) => void;
 }
 
@@ -18,13 +19,13 @@ export const useAuthStore = create<AuthState>(
     (set) => ({
       accessToken: "",
       refreshToken: "",
-      username: "",
+      user: null,
       set: (auth) =>
         set((state) => ({
           ...state,
           accessToken: auth.accessToken,
           refreshToken: auth.refreshToken,
-          username: auth.username,
+          user: auth.user,
         })),
     }),
     { name: "auth-store" }

@@ -5,6 +5,8 @@ import { AiFillPlusCircle } from "react-icons/ai";
 import useCourse from "../../hooks/useCourse";
 import useCourseTasks from "../../hooks/useCourseTasks";
 import useEnrolledStudents from "../../hooks/useEnrolledStudents";
+import TeacherTaskList from "../tasks/TeacherTaskList";
+import { UserResponse } from "../../api/generated";
 
 type TeacherCourseContentProps = {
   user: any;
@@ -55,7 +57,7 @@ const TeacherCourseContent = ({ user }: TeacherCourseContentProps) => {
             </Col>
           </Row>
           <Row>
-            {students.map((student) => (
+            {students.map((student: UserResponse) => (
               <a
                 key={student.id}
                 href="#"
@@ -80,21 +82,7 @@ const TeacherCourseContent = ({ user }: TeacherCourseContentProps) => {
               />
             </h3>
           </Row>
-          {tasks.map((task) => (
-            <Row key={task.id}>
-              <a
-                href="#"
-                onClick={(e) => {
-                  e.preventDefault();
-                  router.push(
-                    `/courses/${course.id}/tasks/${task.id}/submissions`
-                  );
-                }}
-              >
-                {task.name}
-              </a>
-            </Row>
-          ))}
+          <TeacherTaskList tasks={tasks} />
         </>
       )}
     </>

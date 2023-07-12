@@ -3,8 +3,10 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import useProtectedRoute from "../../../../../../hooks/useProtectedRoute";
 import useTask from "../../../../../../hooks/useTask";
+import { DateTime } from "luxon";
 import useTaskSubmissions from "../../../../../../hooks/useTaskSubmissions";
-import { Fragment } from "react";
+import { SubmissionResponse } from "../../../../../../api/generated";
+import { GradingInformation } from "../../../../../../components/tasks/GradingInformation";
 
 const SubmissionsIndexPage = () => {
   useProtectedRoute();
@@ -18,6 +20,7 @@ const SubmissionsIndexPage = () => {
   } = useTaskSubmissions(taskId);
   if (isError || isErrorSubmissions) return <div>Error</div>;
   if (isLoading || isLoadingSubmissions) return <div>Loading...</div>;
+
   return (
     <>
       <Head>
@@ -27,16 +30,21 @@ const SubmissionsIndexPage = () => {
       </Head>
       <Container>
         <Row>
-          <h1>{task.name} submissions </h1>
+          <h1>{task!.name} submissions </h1>
         </Row>
+        <GradingInformation task={task!} />
         <Row>
-          {submissions.map((submission) => {
+          {submissions.map((submission: SubmissionResponse) => {
             const url = `http://localhost:8000${submission.file.replace(
               "uploads/",
               ""
             )}`;
             return (
-              <Card style={{ width: "18rem" }} key={submission.id}>
+              <Card
+                className="m-2 p-0"
+                style={{ width: "18rem" }}
+                key={submission.id}
+              >
                 <Card.Body>
                   <Card.Title>
                     {submission.student.first_name}{" "}

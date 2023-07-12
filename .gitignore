@@ -87,6 +87,8 @@ bower_components
 
 *.sublime*
 
+api/generated/**
+
 psd
 thumb
 sketch

@@ -1,10 +1,23 @@
 import Head from "next/head";
 import useActiveTasks from "../../hooks/useActiveTasks";
 import { Container } from "react-bootstrap";
-import TaskList from "../../components/tasks/TaskList";
+import useStore from "../../hooks/useStore";
+import { useAuthStore } from "../../stores/authStore";
+import StudentTaskList from "../../components/tasks/StudentTaskList";
+import TeacherTaskList from "../../components/tasks/TeacherTaskList";
 
 const ActiveTasksIndexPage = () => {
   const { tasks, isError, isLoading } = useActiveTasks();
+  const user = useStore(useAuthStore, (store) => store.user);
+  let taskList: JSX.Element | undefined = undefined;
+
+  if (user && tasks) {
+    if (user.is_student) {
+      taskList = <StudentTaskList tasks={tasks} />;
+    } else {
+      taskList = <TeacherTaskList tasks={tasks} />;
+    }
+  }
 
   if (isError) return "Error";
   if (isLoading) return "Loading";
@@ -18,7 +31,7 @@ const ActiveTasksIndexPage = () => {
       </Head>
       <Container>
         <h1>My Active Tasks</h1>
-        {tasks && <TaskList tasks={tasks} />}
+        {tasks && taskList}
       </Container>
     </>
   );

@@ -4,6 +4,7 @@ import { Container, Row, Col } from "react-bootstrap";
 import useCourse from "../../hooks/useCourse";
 import useCourseTasks from "../../hooks/useCourseTasks";
 import useUser from "../../hooks/useUser";
+import StudentTaskList from "../tasks/StudentTaskList";
 
 type StudentCourseContentProps = {
   user: any;
@@ -38,21 +39,7 @@ const StudentCourseContent = ({
           <Row>
             <h3>Tasks: </h3>
           </Row>
-          {tasks.map((task) => (
-            <Row key={task.id}>
-              <a
-                href="#"
-                onClick={(e) => {
-                  e.preventDefault();
-                  router.push(
-                    `/courses/${course.id}/tasks/${task.id}/submissions/add`
-                  );
-                }}
-              >
-                {task.name}
-              </a>
-            </Row>
-          ))}
+          <StudentTaskList tasks={tasks} />
         </>
       )}
     </>

@@ -1,11 +1,11 @@
 import { StateCreator, create } from "zustand";
 import { persist, createJSONStorage, PersistOptions } from "zustand/middleware";
-import { User } from "../models/User";
+import { UserResponse } from "../api/generated";
 
 interface AuthState {
   accessToken: string;
   refreshToken: string;
-  user: User | null;
+  user: UserResponse | null;
   set: (auth: any) => void;
 }
 

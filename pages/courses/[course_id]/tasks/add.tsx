@@ -6,10 +6,8 @@ import { useRouter } from "next/router";
 import useProtectedRoute from "../../../../hooks/useProtectedRoute";
 import useAuthorizedAxios from "../../../../hooks/useAuthorizedAxios";
 import useCourse from "../../../../hooks/useCourse";
-
-type CreateTaskArgs = {
-  name: string;
-};
+import { AxiosError } from "axios";
+import { CreateTaskRequest } from "../../../../api/generated";
 
 const AddTaskPage = () => {
   useProtectedRoute();
@@ -20,25 +18,32 @@ const AddTaskPage = () => {
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm<CreateTaskArgs>();
+  } = useForm<CreateTaskRequest>();
   const { course, isError, isLoading } = useCourse(
     Number(router.query.course_id)
   );
-  const onSubmit: SubmitHandler<CreateTaskArgs> = async (data) => {
+
+  const onSubmit: SubmitHandler<CreateTaskRequest> = async (data) => {
     try {
-      const response = await authorizedAxios.post(
-        "http://localhost:8000/api/tasks",
-        {
-          name: data.name,
-          course_id: Number(router.query.course_id),
-        }
-      );
+      const jsonData = {
+        name: data.name,
+        course_id: Number(router.query.course_id),
+        instructions: data.instructions,
+        submissions_number: Number(data.submissions_number),
+        deadline: data.deadline,
+      };
+      console.log(jsonData);
+
+      await authorizedAxios.post("http://localhost:8000/api/tasks", jsonData);
       toast.success(`Created task ${data.name}`);
       router.push(`/courses/${Number(router.query.course_id)}/`);
     } catch (e) {
-      console.log(e);
+      if (e instanceof AxiosError) {
+        toast.error(e.message);
+      }
     }
   };
+
   if (isError) return <div>Error</div>;
   if (isLoading) return <div>Loading...</div>;
   return (
@@ -64,6 +69,35 @@ const AddTaskPage = () => {
                   type="text"
                   placeholder="Task name"
                 />
+              </Form.Group>
+            </Row>
+            <Row>
+              <h2>Grading</h2>
+            </Row>
+            <Row>
+              <Form.Group className="mb-3">
+                <Form.Label>Instructions</Form.Label>
+                <Form.Control
+                  {...register("instructions")}
+                  type="text"
+                  placeholder="We will only accept PDF submissions"
+                />
+              </Form.Group>
+            </Row>
+            <Row>
+              <Form.Group className="mb-3">
+                <Form.Label>Submissions to compare</Form.Label>
+                <Form.Control
+                  {...register("submissions_number")}
+                  type="number"
+                  placeholder="2"
+                />
+              </Form.Group>
+            </Row>
+            <Row>
+              <Form.Group className="mb-3">
+                <Form.Label>Deadline</Form.Label>
+                <Form.Control {...register("deadline")} type="datetime-local" />
               </Form.Group>
             </Row>
             <Row>

@@ -22,11 +22,16 @@ const CourseList = ({ courses }: CourseListProps) => {
             className="link-dark m-2 p-0"
             onClick={(e) => {
               e.preventDefault();
+              e.stopPropagation();
               router.push(`/courses/${course.id}`);
             }}
             key={course.id}
           >
-            <Card className="">
+            <Card
+              key={course.id}
+              style={{ width: "18rem" }}
+              className="link-dark m-2 p-0"
+            >
               <Card.Body>
                 <Card.Title>{course.name}</Card.Title>
                 <Card.Text>
@@ -34,9 +39,6 @@ const CourseList = ({ courses }: CourseListProps) => {
                   {course.teacher &&
                     `${course.teacher.first_name} ${course.teacher.last_name}`}
                 </Card.Text>
-                {course.teacher!.id === userId && (
-                  <Button variant="primary">Edit</Button>
-                )}
               </Card.Body>
             </Card>
           </a>

@@ -61,41 +61,48 @@ const AddSubmissionPage = () => {
   if (isLoading || isLoadingSubmit) return <div>Loading...</div>;
 
   if (hasSubmitted) {
-    return <SubmissionContent taskId={task.id} />;
+    return <SubmissionContent taskId={task!.id} />;
   }
-  return (
-    <>
-      <Head>
-        <title>Add submission - Peer Grading</title>
-        <meta name="description" content="Peer grading meta desc..." />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-      <Container>
-        <Row>
+
+  if (task?.grading.status == "STARTED") {
+    return "Can't submit anymore, grading has started!";
+  }
+
+  if (task?.grading.status == "STANDBY") {
+    return (
+      <>
+        <Head>
+          <title>Add submission - Peer Grading</title>
+          <meta name="description" content="Peer grading meta desc..." />
+          <link rel="icon" href="/favicon.ico" />
+        </Head>
+        <Container>
+          <Row>
+            <Col>
+              <h1>Add submission for - {task!.name}</h1>
+            </Col>
+          </Row>
+          <Row>Task: {task!.name}</Row>
+          <Row>Task details: Will go here</Row>
           <Col>
-            <h1>Add submission for - {task.name}</h1>
-          </Col>
-        </Row>
-        <Row>Task: {task.name}</Row>
-        <Row>Task details: Will go here</Row>
-        <Col>
-          <Form onSubmit={handleSubmit(onSubmit)}>
-            <Row>
-              <Form.Group className="mb-3">
-                <Form.Label>Your submission</Form.Label>
-                <Form.Control {...register("file")} type="file" />
-              </Form.Group>
-            </Row>
-            <Row>
-              <Button variant="primary" type="submit">
-                Submit
-              </Button>
-            </Row>
-          </Form>
-        </Col>{" "}
-      </Container>
-    </>
-  );
+            <Form onSubmit={handleSubmit(onSubmit)}>
+              <Row>
+                <Form.Group className="mb-3">
+                  <Form.Label>Your submission</Form.Label>
+                  <Form.Control {...register("file")} type="file" />
+                </Form.Group>
+              </Row>
+              <Row>
+                <Button variant="primary" type="submit">
+                  Submit
+                </Button>
+              </Row>
+            </Form>
+          </Col>{" "}
+        </Container>
+      </>
+    );
+  }
 };
 
 export default AddSubmissionPage;

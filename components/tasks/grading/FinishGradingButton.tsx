@@ -1,0 +1,40 @@
+import { Axios, AxiosError } from "axios";
+import { Button } from "react-bootstrap";
+import { toast } from "react-toastify";
+
+type FinishGradingButtonProps = {
+  mutateGrading: () => void;
+  authorizedAxios: Axios;
+  taskId: number;
+};
+
+export const FinishGradingButton = ({
+  mutateGrading,
+  authorizedAxios,
+  taskId,
+}: FinishGradingButtonProps) => {
+  return (
+    <Button
+      onClick={async (e) => {
+        e.preventDefault();
+        try {
+          await authorizedAxios.patch(
+            `http://localhost:8000/api/tasks/${taskId}/grading-status`,
+            {
+              status: "FINISHED",
+            }
+          );
+          mutateGrading();
+          toast.success("Grading finished");
+        } catch (e) {
+          if (e instanceof AxiosError) {
+            toast.error(e.message);
+          }
+        }
+      }}
+      variant="success"
+    >
+      Finish
+    </Button>
+  );
+};

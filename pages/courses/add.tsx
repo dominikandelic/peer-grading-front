@@ -8,11 +8,7 @@ import useAuthorizedAxios from "../../hooks/useAuthorizedAxios";
 import useTeachers from "../../hooks/useTeachers";
 import { useAuthStore } from "../../stores/authStore";
 import useStore from "../../hooks/useStore";
-
-type CreateCourseArgs = {
-  name: string;
-  teacherId: number;
-};
+import { CreateCourseRequest } from "../../api/generated";
 
 const AddCoursePage = () => {
   useProtectedRoute();
@@ -22,17 +18,17 @@ const AddCoursePage = () => {
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm<CreateCourseArgs>();
+  } = useForm<CreateCourseRequest>();
   const { teachers, isError, isLoading } = useTeachers();
   const router = useRouter();
   const user = useStore(useAuthStore, (store) => store.user);
-  const onSubmit: SubmitHandler<CreateCourseArgs> = async (data) => {
+  const onSubmit: SubmitHandler<CreateCourseRequest> = async (data) => {
     try {
       const response = await authorizedAxios.post(
         "http://localhost:8000/api/courses",
         {
           name: data.name,
-          teacher_id: data.teacherId,
+          teacher_id: data.teacher_id,
         }
       );
       toast.success(`Created course ${data.name}`);
@@ -70,7 +66,7 @@ const AddCoursePage = () => {
             <Row>
               <Form.Group className="mb-3">
                 <Form.Label>Teacher</Form.Label>
-                <Form.Select {...register("teacherId")}>
+                <Form.Select {...register("teacher_id")}>
                   {isLoading && <option>Loading...</option>}
                   {isError && <option>Error fetching teachers</option>}
                   {teachers &&

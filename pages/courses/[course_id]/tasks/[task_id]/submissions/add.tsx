@@ -1,4 +1,12 @@
-import { Button, Col, Container, Form, Row } from "react-bootstrap";
+import {
+  Alert,
+  Button,
+  Col,
+  Container,
+  Form,
+  Row,
+  Spinner,
+} from "react-bootstrap";
 import Head from "next/head";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
@@ -57,15 +65,28 @@ const AddSubmissionPage = () => {
       console.log(e);
     }
   };
-  if (isError || isErrorSubmit) return <div>Error</div>;
-  if (isLoading || isLoadingSubmit) return <div>Loading...</div>;
+  if (isError || isErrorSubmit) return <Container>Error</Container>;
+  if (isLoading || isLoadingSubmit)
+    return (
+      <Container>
+        <Spinner animation="border" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </Spinner>
+      </Container>
+    );
 
   if (hasSubmitted) {
     return <SubmissionContent taskId={task!.id} />;
   }
 
   if (task?.grading.status == "STARTED") {
-    return "Can't submit anymore, grading has started!";
+    return (
+      <Container>
+        <Alert variant="warning">
+          Can't submit anymore, grading has started!
+        </Alert>
+      </Container>
+    );
   }
 
   if (task?.grading.status == "STANDBY") {
@@ -83,7 +104,7 @@ const AddSubmissionPage = () => {
             </Col>
           </Row>
           <Row>Task: {task!.name}</Row>
-          <Row>Task details: Will go here</Row>
+          <Row>Instructions: {task.grading.instructions}</Row>
           <Col>
             <Form onSubmit={handleSubmit(onSubmit)}>
               <Row>
@@ -102,6 +123,10 @@ const AddSubmissionPage = () => {
         </Container>
       </>
     );
+  }
+
+  if (task?.grading.status == "FINISHED") {
+    return "Results soon!";
   }
 };
 

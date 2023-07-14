@@ -1,4 +1,4 @@
-import { Container, Row, Col, Card } from "react-bootstrap";
+import { Container, Row, Col, Card, Spinner } from "react-bootstrap";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import useProtectedRoute from "../../../../../../hooks/useProtectedRoute";
@@ -17,25 +17,33 @@ const SubmissionsIndexPage = () => {
     isError: isErrorSubmissions,
     isLoading: isLoadingSubmissions,
   } = useTaskSubmissions(taskId);
-  if (isError || isErrorSubmissions) return <div>Error</div>;
-  if (isLoading || isLoadingSubmissions) return <div>Loading...</div>;
-
-  return (
-    <>
-      <Head>
-        <title>Submissions - Peer Grading</title>
-        <meta name="description" content="Peer grading meta desc..." />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+  if (isError || isErrorSubmissions) return <Container>Error</Container>;
+  if (isLoading || isLoadingSubmissions)
+    return (
       <Container>
-        <Row>
-          <h1>{task!.name} submissions</h1>
-        </Row>
-        <GradingInformation mutateGrading={mutate} task={task!} />
-        <SubmissionList submissions={submissions} />
+        <Spinner animation="border" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </Spinner>
       </Container>
-    </>
-  );
+    );
+  if (task) {
+    return (
+      <>
+        <Head>
+          <title>Submissions - Peer Grading</title>
+          <meta name="description" content="Peer grading meta desc..." />
+          <link rel="icon" href="/favicon.ico" />
+        </Head>
+        <Container>
+          <Row>
+            <h1>{task!.name} submissions</h1>
+          </Row>
+          <GradingInformation mutateGrading={mutate} task={task!} />
+          <SubmissionList submissions={submissions} />
+        </Container>
+      </>
+    );
+  }
 };
 
 export default SubmissionsIndexPage;

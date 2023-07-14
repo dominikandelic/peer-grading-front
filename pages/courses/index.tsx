@@ -4,7 +4,6 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import useProtectedRoute from "../../hooks/useProtectedRoute";
 import useCourses from "../../hooks/useCourses";
-import { useMemo } from "react";
 import useUser from "../../hooks/useUser";
 import CourseList from "../../components/courses/CourseList";
 

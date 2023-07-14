@@ -10,13 +10,17 @@ import useStore from "../hooks/useStore";
 import { mutate } from "swr";
 
 const LoggedInLinks = ({ router }: { router: NextRouter }) => {
-  const { set } = useAuthStore();
+  const { set, user } = useAuthStore();
 
   return (
     <>
-      <Link href="/courses" passHref legacyBehavior>
-        <Nav.Link active={router.pathname == "/courses"}>All Courses</Nav.Link>
-      </Link>
+      {!user?.is_student && (
+        <Link href="/courses" passHref legacyBehavior>
+          <Nav.Link active={router.pathname == "/courses"}>
+            All Courses
+          </Nav.Link>
+        </Link>
+      )}
       <Link href="/courses/my" passHref legacyBehavior>
         <Nav.Link active={router.pathname == "/courses/my"}>
           My Courses

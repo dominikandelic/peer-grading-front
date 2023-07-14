@@ -34,7 +34,7 @@ export const FinishGradingButton = ({
       }}
       variant="success"
     >
-      Finish
+      Finish grading - show results
     </Button>
   );
 };

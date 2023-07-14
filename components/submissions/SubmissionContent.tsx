@@ -1,5 +1,5 @@
 import useOwnSubmission from "../../hooks/useOwnSubmission";
-import { Container, Row } from "react-bootstrap";
+import { Container, Row, Spinner } from "react-bootstrap";
 
 type SubmissionContentProps = {
   taskId: number;
@@ -8,8 +8,15 @@ type SubmissionContentProps = {
 const SubmissionContent = ({ taskId }: SubmissionContentProps) => {
   // TODO Make this compatible with any submission, not just own
   const { submission, isError, isLoading } = useOwnSubmission(taskId);
-  if (isError) return "Error";
-  if (isLoading) return "Loading";
+  if (isError) return <Container>Error</Container>;
+  if (isLoading)
+    return (
+      <Container>
+        <Spinner animation="border" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </Spinner>
+      </Container>
+    );
 
   const url = `http://localhost:8000${submission.file}`;
 

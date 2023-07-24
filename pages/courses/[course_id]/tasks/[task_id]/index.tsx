@@ -9,6 +9,8 @@ import useAuthorizedAxios from "../../../../../hooks/useAuthorizedAxios";
 import useProtectedRoute from "../../../../../hooks/useProtectedRoute";
 import useTask from "../../../../../hooks/useTask";
 import { DateTime } from "luxon";
+import { ErrorContainer } from "../../../../../components/util/ErrorContainer";
+import { LoadingContainer } from "../../../../../components/util/LoadingContainer";
 
 const EditTaskPage = () => {
   useProtectedRoute();
@@ -45,8 +47,8 @@ const EditTaskPage = () => {
     }
   };
 
-  if (isError) return <div>Error</div>;
-  if (isLoading) return <div>Loading...</div>;
+  if (isError) return <ErrorContainer />;
+  if (isLoading) return <LoadingContainer />;
   return (
     <>
       <Head>
@@ -103,7 +105,7 @@ const EditTaskPage = () => {
                   {...register("deadline")}
                   type="datetime-local"
                   defaultValue={
-                    DateTime.fromISO(task?.grading.deadline!).toISO({
+                    DateTime.fromISO(task?.deadline!).toISO({
                       includeOffset: false,
                     })!
                   }

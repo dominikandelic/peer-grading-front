@@ -4,29 +4,26 @@ import { useRouter } from "next/router";
 import useProtectedRoute from "../../../../../../hooks/useProtectedRoute";
 import useTask from "../../../../../../hooks/useTask";
 import useTaskSubmissions from "../../../../../../hooks/useTaskSubmissions";
-import { GradingInformation } from "../../../../../../components/tasks/GradingInformation";
+import { TaskInformation } from "../../../../../../components/tasks/TaskInformation";
 import { SubmissionList } from "../../../../../../components/submissions/SubmissionList";
+import { useAuthStore } from "../../../../../../stores/authStore";
+import { ErrorContainer } from "../../../../../../components/util/ErrorContainer";
+import { LoadingContainer } from "../../../../../../components/util/LoadingContainer";
 
 const SubmissionsIndexPage = () => {
   useProtectedRoute();
   const router = useRouter();
   const taskId = Number(router.query.task_id);
   const { task, isError, isLoading, mutate } = useTask(taskId);
+  const user = useAuthStore((store) => store.user);
   const {
     submissions,
     isError: isErrorSubmissions,
     isLoading: isLoadingSubmissions,
   } = useTaskSubmissions(taskId);
-  if (isError || isErrorSubmissions) return <Container>Error</Container>;
-  if (isLoading || isLoadingSubmissions)
-    return (
-      <Container>
-        <Spinner animation="border" role="status">
-          <span className="visually-hidden">Loading...</span>
-        </Spinner>
-      </Container>
-    );
-  if (task) {
+  if (isError || isErrorSubmissions) return <ErrorContainer />;
+  if (isLoading || isLoadingSubmissions) return <LoadingContainer />;
+  if (task && user) {
     return (
       <>
         <Head>
@@ -38,7 +35,7 @@ const SubmissionsIndexPage = () => {
           <Row>
             <h1>{task!.name} submissions</h1>
           </Row>
-          <GradingInformation mutateGrading={mutate} task={task!} />
+          <TaskInformation user={user} mutateGrading={mutate} task={task!} />
           <SubmissionList submissions={submissions} />
         </Container>
       </>

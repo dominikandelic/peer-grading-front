@@ -5,9 +5,11 @@ import useStore from "../../hooks/useStore";
 import { useAuthStore } from "../../stores/authStore";
 import StudentTaskList from "../../components/tasks/StudentTaskList";
 import TeacherTaskList from "../../components/tasks/TeacherTaskList";
+import { ErrorContainer } from "../../components/util/ErrorContainer";
+import { LoadingContainer } from "../../components/util/LoadingContainer";
 
 const ActiveTasksIndexPage = () => {
-  const { tasks, isError, isLoading } = useActiveTasks();
+  const { tasks, isError, isLoading, mutate } = useActiveTasks();
   const user = useStore(useAuthStore, (store) => store.user);
   let taskList: JSX.Element | undefined = undefined;
 
@@ -15,12 +17,12 @@ const ActiveTasksIndexPage = () => {
     if (user.is_student) {
       taskList = <StudentTaskList tasks={tasks} />;
     } else {
-      taskList = <TeacherTaskList tasks={tasks} />;
+      taskList = <TeacherTaskList mutateGrading={mutate} tasks={tasks} />;
     }
   }
 
-  if (isError) return "Error";
-  if (isLoading) return "Loading";
+  if (isError) return <ErrorContainer />;
+  if (isLoading) return <LoadingContainer />;
 
   return (
     <>
@@ -30,7 +32,10 @@ const ActiveTasksIndexPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Container>
-        <h1>My Active Tasks</h1>
+        <h1>{user?.is_superuser ? "All" : "My"} Active Tasks</h1>
+        <span>
+          Note: These tasks are grouped by their corresponding statuses
+        </span>
         {tasks && taskList}
       </Container>
     </>

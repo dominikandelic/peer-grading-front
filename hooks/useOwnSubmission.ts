@@ -7,7 +7,7 @@ const useOwnSubmission = (taskId: number) => {
   const user = useAuthStore((store) => store.user);
 
   const { data, error, isLoading } = useSWR(
-    `http://127.0.0.1:8000/api/tasks/${taskId}/${user?.username}/submission`,
+    `http://127.0.0.1:8000/api/tasks/${taskId}/own-submission`,
     fetcher
   );
 

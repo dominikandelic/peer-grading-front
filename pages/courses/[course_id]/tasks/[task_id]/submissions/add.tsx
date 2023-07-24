@@ -15,7 +15,9 @@ import useProtectedRoute from "../../../../../../hooks/useProtectedRoute";
 import useAuthorizedAxios from "../../../../../../hooks/useAuthorizedAxios";
 import useTask from "../../../../../../hooks/useTask";
 import useStudentSubmissionChecker from "../../../../../../hooks/useHasSubmitted";
-import SubmissionContent from "../../../../../../components/submissions/SubmissionContent";
+import { LoadingContainer } from "../../../../../../components/util/LoadingContainer";
+import { ErrorContainer } from "../../../../../../components/util/ErrorContainer";
+import { AxiosError } from "axios";
 
 type CreateSubmissionArgs = {
   file: FileList;
@@ -38,6 +40,8 @@ const AddSubmissionPage = () => {
   } = useForm<CreateSubmissionArgs>();
 
   const { task, isError, isLoading } = useTask(Number(router.query.task_id));
+  const courseId = Number(router.query.course_id);
+  const taskId = Number(router.query.task_id);
   const onSubmit: SubmitHandler<CreateSubmissionArgs> = async (data) => {
     try {
       const formData = new FormData();
@@ -46,7 +50,7 @@ const AddSubmissionPage = () => {
       formData.append(
         "details",
         JSON.stringify({
-          task_id: Number(router.query.task_id),
+          task_id: task?.id,
         })
       );
 
@@ -60,28 +64,29 @@ const AddSubmissionPage = () => {
         }
       );
       toast.success(`Submission uploaded`);
-      router.push(`/courses/${Number(router.query.course_id)}/`);
+      router.push(`/courses/${courseId}/tasks/${taskId}/submissions/own`);
     } catch (e) {
-      console.log(e);
+      if (e instanceof AxiosError) {
+        toast.error(e.response?.data);
+      }
     }
   };
-  if (isError || isErrorSubmit) return <Container>Error</Container>;
-  if (isLoading || isLoadingSubmit)
-    return (
-      <Container>
-        <Spinner animation="border" role="status">
-          <span className="visually-hidden">Loading...</span>
-        </Spinner>
-      </Container>
-    );
+  if (isError || isErrorSubmit) return <ErrorContainer />;
+  if (isLoading || isLoadingSubmit) return <LoadingContainer />;
 
   if (hasSubmitted) {
-    return <SubmissionContent taskId={task!.id} />;
+    router.push(`/courses/${courseId}/tasks/${taskId}/submissions/own`);
+    return;
   }
 
   if (task?.grading.status == "STARTED") {
     return (
       <Container>
+        <Head>
+          <title>Add submission - Peer Grading</title>
+          <meta name="description" content="Peer grading meta desc..." />
+          <link rel="icon" href="/favicon.ico" />
+        </Head>
         <Alert variant="warning">
           Can't submit anymore, grading has started!
         </Alert>
@@ -92,11 +97,6 @@ const AddSubmissionPage = () => {
   if (task?.grading.status == "STANDBY") {
     return (
       <>
-        <Head>
-          <title>Add submission - Peer Grading</title>
-          <meta name="description" content="Peer grading meta desc..." />
-          <link rel="icon" href="/favicon.ico" />
-        </Head>
         <Container>
           <Row>
             <Col>

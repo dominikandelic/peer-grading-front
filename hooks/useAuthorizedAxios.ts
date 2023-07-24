@@ -1,5 +1,6 @@
+import { toast } from "react-toastify";
 import { useAuthStore } from "../stores/authStore";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 
 const useAuthorizedAxios = () => {
   const { accessToken, refreshToken, set } = useAuthStore();
@@ -39,15 +40,21 @@ const useAuthorizedAxios = () => {
       if (error.response.status === 401 && !originalRequest._retry) {
         originalRequest._retry = true;
         return refreshAccessToken().then(() => {
+          set({
+            accessToken: "",
+            refreshToken: "",
+            username: "",
+          });
           originalRequest.headers.Authorization = `Bearer ${accessToken}`;
           return axios(originalRequest);
         });
       }
-      set({
-        accessToken: "",
-        refreshToken: "",
-        username: "",
-      });
+
+      if (error.response.status === 400) {
+        if (error instanceof AxiosError)
+          toast.error(error.response.data.detail);
+      }
+
       return Promise.reject(error);
     }
   );

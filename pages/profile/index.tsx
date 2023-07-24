@@ -1,4 +1,11 @@
-import { Container, Row, Col, Form, Button } from "react-bootstrap";
+import {
+  Container,
+  Row,
+  Col,
+  Form,
+  Button,
+  ButtonGroup,
+} from "react-bootstrap";
 import Head from "next/head";
 import useProtectedRoute from "../../hooks/useProtectedRoute";
 import useUser from "../../hooks/useUser";
@@ -7,6 +14,7 @@ import useAuthorizedAxios from "../../hooks/useAuthorizedAxios";
 import { toast } from "react-toastify";
 import useStore from "../../hooks/useStore";
 import { useAuthStore } from "../../stores/authStore";
+import { ProfileActionButtons } from "../../components/profile/ProfileActionButtons";
 
 type EditProfileArgs = {
   firstName: string;
@@ -57,44 +65,42 @@ const ProfileIndexPage = () => {
         {isError && <div>Error</div>}
         {isLoading && <div>Loading</div>}
         {user && (
-          <Form onSubmit={handleSubmit(onSubmit)}>
-            <Row>
-              <Form.Group className="mb-3">
-                <Form.Label>First Name</Form.Label>
-                <Form.Control
-                  {...register("firstName")}
-                  type="text"
-                  defaultValue={user.first_name}
-                />
-              </Form.Group>
-            </Row>
-            <Row>
-              <Form.Group className="mb-3">
-                <Form.Label>First Name</Form.Label>
-                <Form.Control
-                  {...register("lastName")}
-                  type="text"
-                  defaultValue={user.last_name}
-                />
-              </Form.Group>
-            </Row>
-            <Row>
-              <Form.Group className="mb-3">
-                <Form.Label>Role</Form.Label>
-                <Form.Control
-                  readOnly
-                  disabled
-                  type="text"
-                  defaultValue={user.is_student ? "Student" : "Teacher"}
-                />
-              </Form.Group>
-            </Row>
-            <Row>
-              <Button variant="primary" type="submit">
-                Submit
-              </Button>
-            </Row>
-          </Form>
+          <>
+            <Form onSubmit={handleSubmit(onSubmit)}>
+              <Row>
+                <Form.Group className="mb-3">
+                  <Form.Label>First Name</Form.Label>
+                  <Form.Control
+                    {...register("firstName")}
+                    type="text"
+                    defaultValue={user.first_name}
+                  />
+                </Form.Group>
+              </Row>
+              <Row>
+                <Form.Group className="mb-3">
+                  <Form.Label>First Name</Form.Label>
+                  <Form.Control
+                    {...register("lastName")}
+                    type="text"
+                    defaultValue={user.last_name}
+                  />
+                </Form.Group>
+              </Row>
+              <Row>
+                <Form.Group className="mb-3">
+                  <Form.Label>Role</Form.Label>
+                  <Form.Control
+                    readOnly
+                    disabled
+                    type="text"
+                    defaultValue={user.is_student ? "Student" : "Teacher"}
+                  />
+                </Form.Group>
+              </Row>
+              <ProfileActionButtons user={user} />
+            </Form>
+          </>
         )}
       </Container>
     </>

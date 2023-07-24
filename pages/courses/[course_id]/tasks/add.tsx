@@ -8,6 +8,8 @@ import useAuthorizedAxios from "../../../../hooks/useAuthorizedAxios";
 import useCourse from "../../../../hooks/useCourse";
 import { AxiosError } from "axios";
 import { CreateTaskRequest } from "../../../../api/generated";
+import { ErrorContainer } from "../../../../components/util/ErrorContainer";
+import { LoadingContainer } from "../../../../components/util/LoadingContainer";
 
 const AddTaskPage = () => {
   useProtectedRoute();
@@ -32,8 +34,6 @@ const AddTaskPage = () => {
         submissions_number: Number(data.submissions_number),
         deadline: data.deadline,
       };
-      console.log(jsonData);
-
       await authorizedAxios.post("http://localhost:8000/api/tasks", jsonData);
       toast.success(`Created task ${data.name}`);
       router.push(`/courses/${Number(router.query.course_id)}/`);
@@ -44,8 +44,8 @@ const AddTaskPage = () => {
     }
   };
 
-  if (isError) return <div>Error</div>;
-  if (isLoading) return <div>Loading...</div>;
+  if (isError) return <ErrorContainer />;
+  if (isLoading) return <LoadingContainer />;
   return (
     <>
       <Head>

@@ -4,7 +4,7 @@ import useFetcher from "./useFetcher";
 const useActiveTasks = () => {
   const fetcher = useFetcher();
 
-  const { data, error, isLoading } = useSWR(
+  const { data, error, isLoading, mutate } = useSWR(
     `http://127.0.0.1:8000/api/tasks`,
     fetcher
   );
@@ -13,6 +13,7 @@ const useActiveTasks = () => {
     tasks: data,
     isLoading,
     isError: error,
+    mutate,
   };
 };
 

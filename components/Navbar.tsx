@@ -11,6 +11,7 @@ import { mutate } from "swr";
 
 const LoggedInLinks = ({ router }: { router: NextRouter }) => {
   const { set, user } = useAuthStore();
+  console.log(user);
 
   return (
     <>
@@ -21,11 +22,14 @@ const LoggedInLinks = ({ router }: { router: NextRouter }) => {
           </Nav.Link>
         </Link>
       )}
-      <Link href="/courses/my" passHref legacyBehavior>
-        <Nav.Link active={router.pathname == "/courses/my"}>
-          My Courses
-        </Nav.Link>
-      </Link>
+      {!user?.is_superuser && (
+        <Link href="/courses/my" passHref legacyBehavior>
+          <Nav.Link active={router.pathname == "/courses/my"}>
+            My Courses
+          </Nav.Link>
+        </Link>
+      )}
+
       <Link href="/tasks" passHref legacyBehavior>
         <Nav.Link active={router.pathname == "/tasks"}>Tasks</Nav.Link>
       </Link>

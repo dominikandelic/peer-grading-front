@@ -7,16 +7,14 @@ import useCourseTasks from "../../hooks/useCourseTasks";
 import useEnrolledStudents from "../../hooks/useEnrolledStudents";
 import TeacherTaskList from "../tasks/TeacherTaskList";
 import { UserResponse } from "../../api/generated";
-import useStore from "../../hooks/useStore";
-import { useAuthStore } from "../../stores/authStore";
+import { CourseActionButtons } from "./CourseActionButtons";
 
 type TeacherCourseContentProps = {
-  user: any;
+  user: UserResponse;
 };
 
 const TeacherCourseContent = ({ user }: TeacherCourseContentProps) => {
   const router = useRouter();
-  const userId = useStore(useAuthStore, (store) => store.user?.id);
   const { course, isError, isLoading } = useCourse(
     Number(router.query.course_id)
   );
@@ -29,6 +27,7 @@ const TeacherCourseContent = ({ user }: TeacherCourseContentProps) => {
     tasks,
     isError: isErrorTask,
     isLoading: isLoadingTask,
+    mutate,
   } = useCourseTasks(Number(router.query.course_id));
   return (
     <>
@@ -45,17 +44,8 @@ const TeacherCourseContent = ({ user }: TeacherCourseContentProps) => {
             Teacher: {course.teacher.first_name} {course.teacher.last_name}
           </Col>
           <Row>
-            {course.teacher!.id === userId && (
-              <Button
-                onClick={(e) => {
-                  e.preventDefault();
-                  router.push(`/courses/${course.id}/edit`);
-                }}
-                variant="primary"
-              >
-                Edit
-              </Button>
-            )}
+            {course.teacher!.id === user.id ||
+              (user.is_superuser && <CourseActionButtons course={course} />)}
           </Row>
           <Row>
             <Col>
@@ -98,7 +88,7 @@ const TeacherCourseContent = ({ user }: TeacherCourseContentProps) => {
               />
             </h3>
           </Row>
-          <TeacherTaskList tasks={tasks} />
+          <TeacherTaskList mutateGrading={mutate} tasks={tasks} />
         </>
       )}
     </>

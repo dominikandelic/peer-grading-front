@@ -15,19 +15,13 @@ type EnrollStudentArgs = {
 const EnrollStudentsPage = () => {
   useProtectedRoute();
   const { authorizedAxios } = useAuthorizedAxios();
-  const {
-    register,
-    handleSubmit,
-    watch,
-    formState: { errors },
-  } = useForm<EnrollStudentArgs>();
+  const { register, handleSubmit } = useForm<EnrollStudentArgs>();
   const { students, isError, isLoading } = useStudents();
   const router = useRouter();
   const courseId = Number(router.query.course_id);
-  const auth = useAuthStore();
   const onSubmit: SubmitHandler<EnrollStudentArgs> = async (data) => {
     try {
-      const response = await authorizedAxios.post(
+      await authorizedAxios.post(
         `http://localhost:8000/api/courses/${courseId}/enroll-students`,
         {
           student_id: data.studentId,

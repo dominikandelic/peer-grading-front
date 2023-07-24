@@ -10,6 +10,8 @@ import { useAuthStore } from "../../../stores/authStore";
 import { UpdateCourseRequest } from "../../../api/generated";
 import { AxiosError } from "axios";
 import useCourse from "../../../hooks/useCourse";
+import { ErrorContainer } from "../../../components/util/ErrorContainer";
+import { LoadingContainer } from "../../../components/util/LoadingContainer";
 
 const EditCoursePage = () => {
   useProtectedRoute();
@@ -40,8 +42,8 @@ const EditCoursePage = () => {
       }
     }
   };
-  if (isError) return "Error";
-  if (isLoading) return "Loading...";
+  if (isError) return <ErrorContainer />;
+  if (isLoading) return <LoadingContainer />;
   return (
     <>
       <Head>

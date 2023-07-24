@@ -4,13 +4,15 @@ import { AiFillPlusCircle } from "react-icons/ai";
 import { useRouter } from "next/router";
 import useProtectedRoute from "../../../../hooks/useProtectedRoute";
 import useCourse from "../../../../hooks/useCourse";
+import { ErrorContainer } from "../../../../components/util/ErrorContainer";
+import { LoadingContainer } from "../../../../components/util/LoadingContainer";
 
 const TasksIndexPage = () => {
   useProtectedRoute();
   const router = useRouter();
   const { course, isError, isLoading } = useCourse(Number(router.query.id));
-  if (isError) return <div>Error</div>;
-  if (isLoading) return <div>Loading...</div>;
+  if (isError) return <ErrorContainer />;
+  if (isLoading) return <LoadingContainer />;
   return (
     <>
       <Head>

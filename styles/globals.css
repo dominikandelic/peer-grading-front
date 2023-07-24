@@ -29,3 +29,10 @@ a {
   color: black;
   cursor: pointer;
 }
+
+.task-display {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  border: 2px solid gray;
+  padding: 0.5rem;
+}

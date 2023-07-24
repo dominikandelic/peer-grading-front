@@ -25,7 +25,7 @@ const CoursesIndexPage = () => {
           <Col>
             <h1>
               All Courses{" "}
-              {user && user.is_teacher && (
+              {user && (user.is_teacher || user.is_superuser) && (
                 <AiFillPlusCircle
                   className="plus-icon"
                   onClick={(e) => {

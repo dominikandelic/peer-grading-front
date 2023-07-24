@@ -27,7 +27,7 @@ const CourseDetailPage = () => {
             <h1>Course Details</h1>
           </Col>
         </Row>
-        {user && user.is_teacher ? (
+        {user && (user.is_teacher || user.is_superuser) ? (
           <TeacherCourseContent user={user} />
         ) : (
           <StudentCourseContent courseId={courseId} user={user} />

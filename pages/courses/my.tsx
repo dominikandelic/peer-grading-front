@@ -6,13 +6,15 @@ import { useAuthStore } from "../../stores/authStore";
 import { AiFillPlusCircle } from "react-icons/ai";
 import { useRouter } from "next/router";
 import Head from "next/head";
+import { ErrorContainer } from "../../components/util/ErrorContainer";
+import { LoadingContainer } from "../../components/util/LoadingContainer";
 
 const MyCoursesPage = () => {
   const { courses, isError, isLoading } = useMyCourses();
   const user = useStore(useAuthStore, (store) => store.user);
   const router = useRouter();
-  if (isError) return "Error";
-  if (isLoading) return "Loading";
+  if (isError) return <ErrorContainer />;
+  if (isLoading) return <LoadingContainer />;
   return (
     <>
       <Head>

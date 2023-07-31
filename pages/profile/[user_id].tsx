@@ -3,14 +3,15 @@ import Head from "next/head";
 import useProtectedRoute from "../../hooks/useProtectedRoute";
 import useUser from "../../hooks/useUser";
 import { useRouter } from "next/router";
-import { useAuthStore } from "../../stores/authStore";
 import { ProfileActionButtons } from "../../components/profile/ProfileActionButtons";
+import { useAuthStore } from "../../stores/authStore";
 
 const UserProfileViewPage = () => {
   useProtectedRoute();
   const router = useRouter();
   const userId = Number(router.query.user_id);
   const { user, isError, isLoading } = useUser(userId);
+  const loggedInUser = useAuthStore((store) => store.user);
   return (
     <>
       <Head>
@@ -52,7 +53,9 @@ const UserProfileViewPage = () => {
                   />
                 </Form.Group>
               </Row>
-              <ProfileActionButtons user={user} />
+              {(loggedInUser!.id === user.id || loggedInUser?.is_superuser) && (
+                <ProfileActionButtons user={user} />
+              )}
             </Form>
           </>
         )}

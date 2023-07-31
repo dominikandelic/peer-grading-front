@@ -3,6 +3,7 @@ import { Container, Row, Spinner } from "react-bootstrap";
 import { useRouter } from "next/router";
 import { LoadingContainer } from "../util/LoadingContainer";
 import { ErrorContainer } from "../util/ErrorContainer";
+import { BASE_URL } from "../../env";
 
 type SubmissionContentProps = {
   taskId: number;
@@ -15,7 +16,7 @@ const SubmissionContent = ({ taskId }: SubmissionContentProps) => {
   if (isError) return <ErrorContainer />;
   if (isLoading) return <LoadingContainer />;
 
-  const url = `http://localhost:8000${submission.file}`;
+  const url = `${BASE_URL}${submission.file}`;
 
   return (
     <Container>

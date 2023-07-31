@@ -12,6 +12,7 @@ import { AxiosError } from "axios";
 import useCourse from "../../../hooks/useCourse";
 import { ErrorContainer } from "../../../components/util/ErrorContainer";
 import { LoadingContainer } from "../../../components/util/LoadingContainer";
+import { BASE_URL } from "../../../env";
 
 const EditCoursePage = () => {
   useProtectedRoute();
@@ -29,7 +30,7 @@ const EditCoursePage = () => {
   const onSubmit: SubmitHandler<UpdateCourseRequest> = async (data) => {
     try {
       const response = await authorizedAxios.put(
-        `http://localhost:8000/api/courses/${courseId}`,
+        `${BASE_URL}/api/courses/${courseId}`,
         {
           name: data.name,
         }

@@ -1,12 +1,12 @@
 import { useRouter } from "next/router";
 import useProtectedRoute from "../../../hooks/useProtectedRoute";
 import { Card, Container, ListGroup, Row } from "react-bootstrap";
-import useGradingResults from "../../../hooks/useGradingResults";
+import useGradingResults from "../../../hooks/useTaskGradingResults";
 import { ErrorContainer } from "../../../components/util/ErrorContainer";
 import { LoadingContainer } from "../../../components/util/LoadingContainer";
-import { GradingResultItem } from "../../../components/tasks/grading/GradingResultItem";
 import { DateTime } from "luxon";
 import Head from "next/head";
+import { TaskGradingResultItem } from "../../../components/tasks/grading/TaskGradingResultItem";
 
 const GradingResultPage = () => {
   useProtectedRoute();
@@ -39,10 +39,10 @@ const GradingResultPage = () => {
         </h1>
         <Card>
           <Card.Body>
-            <Card.Title>Grading Results</Card.Title>
+            <Card.Title>Grading results</Card.Title>
             <ListGroup variant="flush">
               {gradingResults.map((result, index) => {
-                return <GradingResultItem result={result} index={index} />;
+                return <TaskGradingResultItem result={result} index={index} />;
               })}
             </ListGroup>
           </Card.Body>

@@ -5,6 +5,7 @@ import { AxiosError } from "axios";
 import { toast } from "react-toastify";
 import useAuthorizedAxios from "../../hooks/useAuthorizedAxios";
 import { useState } from "react";
+import { BASE_URL } from "../../env";
 
 type CourseActionButtonsProps = {
   course: CourseResponse;
@@ -55,7 +56,7 @@ export const CourseActionButtons: React.FC<CourseActionButtonsProps> = ({
               e.preventDefault();
               try {
                 await authorizedAxios.delete(
-                  `http://localhost:8000/api/courses/${course.id}`
+                  `${BASE_URL}/api/courses/${course.id}`
                 );
                 handleClose();
                 toast.success("Deleted course");

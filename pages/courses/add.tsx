@@ -9,6 +9,8 @@ import useTeachers from "../../hooks/useTeachers";
 import { useAuthStore } from "../../stores/authStore";
 import useStore from "../../hooks/useStore";
 import { CreateCourseRequest } from "../../api/generated";
+import { AxiosError } from "axios";
+import { BASE_URL } from "../../env";
 
 const AddCoursePage = () => {
   useProtectedRoute();
@@ -24,17 +26,16 @@ const AddCoursePage = () => {
   const user = useStore(useAuthStore, (store) => store.user);
   const onSubmit: SubmitHandler<CreateCourseRequest> = async (data) => {
     try {
-      const response = await authorizedAxios.post(
-        "http://localhost:8000/api/courses",
-        {
-          name: data.name,
-          teacher_id: data.teacher_id,
-        }
-      );
+      const response = await authorizedAxios.post(`${BASE_URL}/api/courses`, {
+        name: data.name,
+        teacher_id: data.teacher_id,
+      });
       toast.success(`Created course ${data.name}`);
       router.push("/courses");
     } catch (e) {
-      console.log(e);
+      if (e instanceof AxiosError) {
+        toast.error(e.response?.data);
+      }
     }
   };
 

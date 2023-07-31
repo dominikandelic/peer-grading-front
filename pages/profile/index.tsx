@@ -12,9 +12,10 @@ import useUser from "../../hooks/useUser";
 import { SubmitHandler, useForm } from "react-hook-form";
 import useAuthorizedAxios from "../../hooks/useAuthorizedAxios";
 import { toast } from "react-toastify";
-import useStore from "../../hooks/useStore";
-import { useAuthStore } from "../../stores/authStore";
 import { ProfileActionButtons } from "../../components/profile/ProfileActionButtons";
+import { useAuthStore } from "../../stores/authStore";
+import { AxiosError } from "axios";
+import { BASE_URL } from "../../env";
 
 type EditProfileArgs = {
   firstName: string;
@@ -25,7 +26,7 @@ const ProfileIndexPage = () => {
   useProtectedRoute();
 
   const { user, isError, isLoading, mutate } = useUser();
-
+  const loggedInUser = useAuthStore((store) => store.user);
   const { authorizedAxios } = useAuthorizedAxios();
   const {
     register,
@@ -35,17 +36,16 @@ const ProfileIndexPage = () => {
   } = useForm<EditProfileArgs>();
   const onSubmit: SubmitHandler<EditProfileArgs> = async (data) => {
     try {
-      const response = await authorizedAxios.put(
-        "http://localhost:8000/api/profile",
-        {
-          first_name: data.firstName,
-          last_name: data.lastName,
-        }
-      );
+      const response = await authorizedAxios.put(`${BASE_URL}/api/profile`, {
+        first_name: data.firstName,
+        last_name: data.lastName,
+      });
       mutate();
       toast.success(`Success`);
     } catch (e) {
-      console.log(e);
+      if (e instanceof AxiosError) {
+        toast.error(e.response?.data);
+      }
     }
   };
 

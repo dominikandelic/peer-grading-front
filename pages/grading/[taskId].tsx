@@ -5,6 +5,7 @@ import { LoadingContainer } from "../../components/util/LoadingContainer";
 import { ErrorContainer } from "../../components/util/ErrorContainer";
 import { Container } from "react-bootstrap";
 import { GradingForm } from "../../components/tasks/grading/GradingForm";
+import Head from "next/head";
 
 const GradeSubmissionsPage = () => {
   useProtectedRoute();
@@ -19,6 +20,11 @@ const GradeSubmissionsPage = () => {
   if (submissions) {
     return (
       <Container>
+        <Head>
+          <title>Grade submissions - Peer Grading</title>
+          <meta name="description" content="Peer grading meta desc..." />
+          <link rel="icon" href="/favicon.ico" />
+        </Head>
         <GradingForm taskId={taskId} submissions={submissions} />
       </Container>
     );

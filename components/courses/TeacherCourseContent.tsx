@@ -44,8 +44,9 @@ const TeacherCourseContent = ({ user }: TeacherCourseContentProps) => {
             Teacher: {course.teacher.first_name} {course.teacher.last_name}
           </Col>
           <Row>
-            {course.teacher!.id === user.id ||
-              (user.is_superuser && <CourseActionButtons course={course} />)}
+            {(course.teacher!.id === user.id || user.is_superuser) && (
+              <CourseActionButtons course={course} />
+            )}
           </Row>
           <Row>
             <Col>
@@ -64,17 +65,20 @@ const TeacherCourseContent = ({ user }: TeacherCourseContentProps) => {
           </Row>
           <Row>
             {students.map((student: UserResponse) => (
-              <a
-                key={student.id}
-                href="#"
-                onClick={(e) => {
-                  e.preventDefault();
-                  router.push(`/profile/${student.id}`);
-                }}
-              >
-                {student.first_name} {student.last_name}
-              </a>
-            ))}{" "}
+              <Col sm="2">
+                <a
+                  className="link"
+                  key={student.id}
+                  href="#"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    router.push(`/profile/${student.id}`);
+                  }}
+                >
+                  {student.first_name} {student.last_name}
+                </a>
+              </Col>
+            ))}
           </Row>
           <Row>
             <h3>
@@ -88,7 +92,11 @@ const TeacherCourseContent = ({ user }: TeacherCourseContentProps) => {
               />
             </h3>
           </Row>
-          <TeacherTaskList mutateGrading={mutate} tasks={tasks} />
+          <TeacherTaskList
+            isCourseTitleHidden
+            mutateGrading={mutate}
+            tasks={tasks}
+          />
         </>
       )}
     </>

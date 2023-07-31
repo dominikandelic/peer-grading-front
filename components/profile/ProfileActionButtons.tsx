@@ -6,6 +6,7 @@ import router from "next/router";
 import { toast } from "react-toastify";
 import { UserResponse } from "../../api/generated";
 import { useAuthStore } from "../../stores/authStore";
+import { BASE_URL } from "../../env";
 
 type ProfileActionButtonsProps = {
   user: UserResponse;
@@ -20,12 +21,13 @@ export const ProfileActionButtons: React.FC<ProfileActionButtonsProps> = ({
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const DELETION_MESSAGE = loggedInUser === user ? "your profile" : "this user";
+  const DELETION_MESSAGE =
+    loggedInUser?.id === user.id ? "your profile" : "this user";
 
   return (
     <Row>
       <ButtonGroup>
-        {(loggedInUser === user || loggedInUser?.is_superuser) && (
+        {(loggedInUser!.id === user.id || loggedInUser?.is_superuser) && (
           <Button variant="primary" type="submit">
             Submit
           </Button>
@@ -57,7 +59,7 @@ export const ProfileActionButtons: React.FC<ProfileActionButtonsProps> = ({
               e.preventDefault();
               try {
                 await authorizedAxios.delete(
-                  `http://localhost:8000/api/users/${user.id}`
+                  `${BASE_URL}/api/users/${user.id}`
                 );
                 handleClose();
                 toast.success("Deleted user");

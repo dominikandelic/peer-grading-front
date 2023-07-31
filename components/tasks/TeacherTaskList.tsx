@@ -7,9 +7,14 @@ import { useAuthStore } from "../../stores/authStore";
 type TeacherTaskListProps = {
   tasks: TaskResponse[];
   mutateGrading: () => void;
+  isCourseTitleHidden: boolean;
 };
 
-const TeacherTaskList = ({ tasks, mutateGrading }: TeacherTaskListProps) => {
+const TeacherTaskList = ({
+  tasks,
+  mutateGrading,
+  isCourseTitleHidden,
+}: TeacherTaskListProps) => {
   const user = useAuthStore((store) => store.user);
 
   if (tasks.length === 0) return <Row>No data</Row>;
@@ -29,7 +34,7 @@ const TeacherTaskList = ({ tasks, mutateGrading }: TeacherTaskListProps) => {
     <div>
       {Object.entries(groupedTasks).map(([courseName, tasksByStatus]) => (
         <div className="task-display" key={courseName}>
-          <h2>{courseName}</h2>
+          {!isCourseTitleHidden && <h2>{courseName}</h2>}
           {Object.entries(tasksByStatus).map(([status, tasks]) => (
             <Row key={status}>
               <h3>{statusMapper.get(status)}</h3>

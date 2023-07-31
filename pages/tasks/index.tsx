@@ -17,7 +17,13 @@ const ActiveTasksIndexPage = () => {
     if (user.is_student) {
       taskList = <StudentTaskList tasks={tasks} />;
     } else {
-      taskList = <TeacherTaskList mutateGrading={mutate} tasks={tasks} />;
+      taskList = (
+        <TeacherTaskList
+          isCourseTitleHidden={false}
+          mutateGrading={mutate}
+          tasks={tasks}
+        />
+      );
     }
   }
 

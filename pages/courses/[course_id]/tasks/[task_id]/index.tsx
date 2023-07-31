@@ -11,6 +11,7 @@ import useTask from "../../../../../hooks/useTask";
 import { DateTime } from "luxon";
 import { ErrorContainer } from "../../../../../components/util/ErrorContainer";
 import { LoadingContainer } from "../../../../../components/util/LoadingContainer";
+import { BASE_URL } from "../../../../../env";
 
 const EditTaskPage = () => {
   useProtectedRoute();
@@ -34,10 +35,7 @@ const EditTaskPage = () => {
         submissions_number: Number(data.submissions_number),
         deadline: data.deadline,
       };
-      await authorizedAxios.put(
-        `http://localhost:8000/api/tasks/${taskId}`,
-        jsonData
-      );
+      await authorizedAxios.put(`${BASE_URL}/api/tasks/${taskId}`, jsonData);
       toast.success(`Edited task ${data.name}`);
       mutate();
     } catch (e) {
@@ -82,14 +80,17 @@ const EditTaskPage = () => {
                 <Form.Label>Instructions</Form.Label>
                 <Form.Control
                   {...register("instructions")}
-                  type="text"
+                  as="textarea"
+                  rows={3}
                   defaultValue={task?.grading.instructions}
                 />
               </Form.Group>
             </Row>
             <Row>
               <Form.Group className="mb-3">
-                <Form.Label>Submissions to compare</Form.Label>
+                <Form.Label>
+                  How many submissions do students compare?
+                </Form.Label>
                 <Form.Control
                   {...register("submissions_number")}
                   type="number"

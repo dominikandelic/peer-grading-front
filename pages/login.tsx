@@ -5,6 +5,7 @@ import axios, { AxiosError } from "axios";
 import { useAuthStore } from "../stores/authStore";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
+import { BASE_URL } from "../env";
 
 type LoginArgs = {
   username: string;
@@ -22,13 +23,10 @@ const LoginPage = () => {
   } = useForm<LoginArgs>();
   const onSubmit: SubmitHandler<LoginArgs> = async (data) => {
     try {
-      const response = await axios.post(
-        "http://localhost:8000/api/token/pair",
-        {
-          username: data.username,
-          password: data.password,
-        }
-      );
+      const response = await axios.post(`${BASE_URL}/api/token/pair7`, {
+        username: data.username,
+        password: data.password,
+      });
       set({
         user: response.data.user,
         accessToken: response.data.access,

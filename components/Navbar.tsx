@@ -11,7 +11,6 @@ import { mutate } from "swr";
 
 const LoggedInLinks = ({ router }: { router: NextRouter }) => {
   const { set, user } = useAuthStore();
-  console.log(user);
 
   return (
     <>

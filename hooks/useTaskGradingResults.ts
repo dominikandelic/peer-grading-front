@@ -2,7 +2,7 @@ import useSWR from "swr";
 import useFetcher from "./useFetcher";
 import { GradingResultResponse } from "../api/generated";
 
-const useGradingResults = (taskId: number) => {
+const useTaskGradingResults = (taskId: number) => {
   const fetcher = useFetcher();
 
   const { data, error, isLoading } = useSWR<GradingResultResponse[]>(
@@ -17,4 +17,4 @@ const useGradingResults = (taskId: number) => {
   };
 };
 
-export default useGradingResults;
+export default useTaskGradingResults;

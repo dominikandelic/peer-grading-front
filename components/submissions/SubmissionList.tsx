@@ -1,5 +1,6 @@
 import { Card, Row } from "react-bootstrap";
 import { SubmissionResponse } from "../../api/generated";
+import { BASE_URL } from "../../env";
 
 type SubmissionListProps = {
   submissions: SubmissionResponse[];
@@ -9,10 +10,7 @@ export const SubmissionList = ({ submissions }: SubmissionListProps) => {
   return (
     <Row>
       {submissions.map((submission: SubmissionResponse) => {
-        const url = `http://localhost:8000${submission.file.replace(
-          "uploads/",
-          ""
-        )}`;
+        const url = `${BASE_URL}${submission.file.replace("uploads/", "")}`;
         return (
           <Card
             className="m-2 p-0"

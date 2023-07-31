@@ -13,6 +13,7 @@ import useAuthorizedAxios from "../../../hooks/useAuthorizedAxios";
 import { useRouter } from "next/router";
 import { AxiosError } from "axios";
 import { toast } from "react-toastify";
+import { BASE_URL } from "../../../env";
 
 type GradingFormProps = {
   submissions: SubmissionResponse[];
@@ -26,7 +27,7 @@ export const GradingForm = ({ submissions, taskId }: GradingFormProps) => {
   const onSubmit: SubmitHandler<GradeSubmissionRequest[]> = async (data) => {
     try {
       await authorizedAxios.put(
-        `http://localhost:8000/api/grading/${taskId}`,
+        `${BASE_URL}/api/grading/${taskId}`,
         Object.values(data).map((item) => ({
           submission_id: Number(item.submission_id),
           grade: Number(item.grade),
@@ -50,10 +51,7 @@ export const GradingForm = ({ submissions, taskId }: GradingFormProps) => {
         </h2>
         <span></span>
         {submissions.map((submission: SubmissionResponse, index) => {
-          const url = `http://localhost:8000${submission.file.replace(
-            "uploads/",
-            ""
-          )}`;
+          const url = `${BASE_URL}${submission.file.replace("uploads/", "")}`;
           return (
             <Card
               className="m-2 p-0"

@@ -7,6 +7,7 @@ import useAuthorizedAxios from "../../hooks/useAuthorizedAxios";
 import { useState } from "react";
 import { AxiosError } from "axios";
 import { toast } from "react-toastify";
+import { BASE_URL } from "../../env";
 
 type TaskActionButtonsProps = {
   task: TaskResponse;
@@ -85,7 +86,7 @@ export const TaskActionButtons = ({
               e.preventDefault();
               try {
                 await authorizedAxios.delete(
-                  `http://localhost:8000/api/tasks/${task.id}`
+                  `${BASE_URL}/api/tasks/${task.id}`
                 );
                 handleClose();
                 toast.success("Deleted task");

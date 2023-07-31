@@ -10,6 +10,7 @@ import { AxiosError } from "axios";
 import { CreateTaskRequest } from "../../../../api/generated";
 import { ErrorContainer } from "../../../../components/util/ErrorContainer";
 import { LoadingContainer } from "../../../../components/util/LoadingContainer";
+import { BASE_URL } from "../../../../env";
 
 const AddTaskPage = () => {
   useProtectedRoute();
@@ -34,7 +35,7 @@ const AddTaskPage = () => {
         submissions_number: Number(data.submissions_number),
         deadline: data.deadline,
       };
-      await authorizedAxios.post("http://localhost:8000/api/tasks", jsonData);
+      await authorizedAxios.post(`${BASE_URL}/api/tasks`, jsonData);
       toast.success(`Created task ${data.name}`);
       router.push(`/courses/${Number(router.query.course_id)}/`);
     } catch (e) {
@@ -78,15 +79,17 @@ const AddTaskPage = () => {
               <Form.Group className="mb-3">
                 <Form.Label>Instructions</Form.Label>
                 <Form.Control
+                  as="textarea"
+                  rows={3}
                   {...register("instructions")}
-                  type="text"
-                  placeholder="We will only accept PDF submissions"
                 />
               </Form.Group>
             </Row>
             <Row>
               <Form.Group className="mb-3">
-                <Form.Label>Submissions to compare</Form.Label>
+                <Form.Label>
+                  How many submissions do students compare?
+                </Form.Label>
                 <Form.Control
                   {...register("submissions_number")}
                   type="number"

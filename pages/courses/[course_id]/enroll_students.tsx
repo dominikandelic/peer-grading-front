@@ -7,6 +7,8 @@ import useAuthorizedAxios from "../../../hooks/useAuthorizedAxios";
 import useProtectedRoute from "../../../hooks/useProtectedRoute";
 import { useAuthStore } from "../../../stores/authStore";
 import useStudents from "../../../hooks/useStudents";
+import { AxiosError } from "axios";
+import { BASE_URL } from "../../../env";
 
 type EnrollStudentArgs = {
   studentId: number;
@@ -22,7 +24,7 @@ const EnrollStudentsPage = () => {
   const onSubmit: SubmitHandler<EnrollStudentArgs> = async (data) => {
     try {
       await authorizedAxios.post(
-        `http://localhost:8000/api/courses/${courseId}/enroll-students`,
+        `${BASE_URL}/api/courses/${courseId}/enroll-students`,
         {
           student_id: data.studentId,
         }
@@ -30,7 +32,9 @@ const EnrollStudentsPage = () => {
       toast.success(`Added student ${data.studentId}`);
       router.push(`/courses/${courseId}`);
     } catch (e) {
-      console.log(e);
+      if (e instanceof AxiosError) {
+        toast.error(e.response?.data);
+      }
     }
   };
 

@@ -18,6 +18,7 @@ import useStudentSubmissionChecker from "../../../../../../hooks/useHasSubmitted
 import { LoadingContainer } from "../../../../../../components/util/LoadingContainer";
 import { ErrorContainer } from "../../../../../../components/util/ErrorContainer";
 import { AxiosError } from "axios";
+import { BASE_URL } from "../../../../../../env";
 
 type CreateSubmissionArgs = {
   file: FileList;
@@ -55,7 +56,7 @@ const AddSubmissionPage = () => {
       );
 
       const response = await authorizedAxios.post(
-        "http://localhost:8000/api/submissions",
+        `${BASE_URL}/api/submissions`,
         formData,
         {
           headers: {
@@ -97,6 +98,11 @@ const AddSubmissionPage = () => {
   if (task?.grading.status == "STANDBY") {
     return (
       <>
+        <Head>
+          <title>Add submission - Peer Grading</title>
+          <meta name="description" content="Peer grading meta desc..." />
+          <link rel="icon" href="/favicon.ico" />
+        </Head>
         <Container>
           <Row>
             <Col>

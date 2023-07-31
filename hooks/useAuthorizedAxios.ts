@@ -17,7 +17,7 @@ const useAuthorizedAxios = () => {
         refreshToken: response.data.refresh,
       });
     } catch (err) {
-      console.error(err);
+      resetAuth(set);
       throw err;
     }
   }
@@ -40,11 +40,7 @@ const useAuthorizedAxios = () => {
       if (error.response.status === 401 && !originalRequest._retry) {
         originalRequest._retry = true;
         return refreshAccessToken().then(() => {
-          set({
-            accessToken: "",
-            refreshToken: "",
-            username: "",
-          });
+          resetAuth(set);
           originalRequest.headers.Authorization = `Bearer ${accessToken}`;
           return axios(originalRequest);
         });
@@ -62,3 +58,11 @@ const useAuthorizedAxios = () => {
 };
 
 export default useAuthorizedAxios;
+
+function resetAuth(set: (auth: any) => void) {
+  set({
+    accessToken: "",
+    refreshToken: "",
+    username: "",
+  });
+}

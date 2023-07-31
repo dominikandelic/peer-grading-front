@@ -1,6 +1,7 @@
 import { Axios, AxiosError } from "axios";
 import { Button } from "react-bootstrap";
 import { toast } from "react-toastify";
+import { BASE_URL } from "../../../env";
 
 type StartGradingButtonProps = {
   mutateGrading: () => void;
@@ -19,7 +20,7 @@ export const StartGradingButton = ({
         e.preventDefault();
         try {
           await authorizedAxios.patch(
-            `http://localhost:8000/api/tasks/${taskId}/grading-status`,
+            `${BASE_URL}/api/tasks/${taskId}/grading-status`,
             {
               status: "STARTED",
             }

@@ -16,14 +16,14 @@ const CourseDetailPage = () => {
     return (
       <>
         <Head>
-          <title>Course Details - Peer Grading</title>
-          <meta name="description" content="Peer grading meta desc..." />
+          <title>Detalji kolegija - PeerGrader</title>
+          <meta name="description" content="PeerGrader meta desc..." />
           <link rel="icon" href="/favicon.ico" />
         </Head>
         <Container>
           <Row>
             <Col>
-              <h1>Course Details</h1>
+              <h1>Detalji kolegija</h1>
             </Col>
           </Row>
           {user.is_teacher || user.is_superuser ? (

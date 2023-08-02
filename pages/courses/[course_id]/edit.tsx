@@ -35,7 +35,7 @@ const EditCoursePage = () => {
           name: data.name,
         }
       );
-      toast.success(`Edited course ${data.name}`);
+      toast.success(`Ažuriran kolegij ${data.name}`);
       mutate();
     } catch (e) {
       if (e instanceof AxiosError) {
@@ -48,21 +48,21 @@ const EditCoursePage = () => {
   return (
     <>
       <Head>
-        <title>Edit course - Peer Grading</title>
-        <meta name="description" content="Peer grading meta desc..." />
+        <title>Uredi kolegij - PeerGrader</title>
+        <meta name="description" content="PeerGrader meta desc..." />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Container>
         <Row>
           <Col>
-            <h1>Edit course </h1>
+            <h1>Uredi kolegij </h1>
           </Col>
         </Row>
         <Col>
           <Form onSubmit={handleSubmit(onSubmit)}>
             <Row>
               <Form.Group className="mb-3">
-                <Form.Label>Course</Form.Label>
+                <Form.Label>Kolegij</Form.Label>
                 <Form.Control
                   {...register("name")}
                   type="text"
@@ -72,7 +72,7 @@ const EditCoursePage = () => {
             </Row>
             <Row>
               <Button variant="primary" type="submit">
-                Submit
+                Podnesi
               </Button>
             </Row>
           </Form>

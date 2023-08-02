@@ -26,7 +26,7 @@ export const StartGradingButton = ({
             }
           );
           mutateGrading();
-          toast.success("Grading started");
+          toast.success("Ocjenjivanje započelo");
         } catch (e) {
           if (e instanceof AxiosError) {
             toast.error(e.message);
@@ -35,7 +35,7 @@ export const StartGradingButton = ({
       }}
       variant="success"
     >
-      Start grading
+      Započni ocjenjivanje
     </Button>
   );
 };

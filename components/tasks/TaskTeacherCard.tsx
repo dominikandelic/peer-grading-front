@@ -25,10 +25,10 @@ const TaskTeacherCard: React.FC<TaskTeacherCardProps> = ({
       <Card.Body>
         <Card.Title>{task.name}</Card.Title>
         <Card.Subtitle className="mb-2 text-muted">
-          Deadline: {DateTime.fromISO(task.deadline).toFormat("dd.LL.yyyy. TT")}
+          Rok: {DateTime.fromISO(task.deadline).toFormat("dd.LL.yyyy. TT")}
         </Card.Subtitle>
         <Card.Text>
-          Created at:{" "}
+          Kreiran:{" "}
           {DateTime.fromISO(task.created_at).toFormat("dd.LL.yyyy. TT")}
         </Card.Text>
         <TaskActionButtons

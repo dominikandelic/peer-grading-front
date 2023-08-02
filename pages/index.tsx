@@ -9,14 +9,14 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Peer Grading</title>
-        <meta name="description" content="Peer grading meta desc..." />
+        <title>PeerGrader</title>
+        <meta name="description" content="PeerGrader meta desc..." />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Container>
         <Row className="mt-5">
           <Col className="d-flex align-items-center">
-            <h1>Peer Grading made easy and fun!</h1>
+            <h1>Istorazinsko ocjenjivanje na jednostavan i efikasan način!</h1>
           </Col>
           <Col>
             <Image alt="Depiction of student grading" src={grades} />

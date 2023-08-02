@@ -16,15 +16,15 @@ export const TaskGradingResultItem: React.FC<TaskGradingResultItemProps> = ({
   return (
     <ListGroup.Item key={result.id}>
       <div className="d-flex justify-content-between align-items-center">
-        <div>Submission #{index + 1}</div>
+        <div>Rad #{index + 1}</div>
         <Link href={`/grading/result/submissions/${result.submission.id}`}>
-          Gradings
+          Ocjene
         </Link>
         <a target="_blank" href={url}>
-          View submission
+          Pregledaj rad
         </a>
         <div>
-          Submitted by: {result.submission.student.first_name}{" "}
+          Predao/la: {result.submission.student.first_name}{" "}
           {result.submission.student.last_name}
         </div>
         <Badge pill bg="primary">

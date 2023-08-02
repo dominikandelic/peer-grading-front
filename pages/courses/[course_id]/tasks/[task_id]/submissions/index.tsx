@@ -27,13 +27,13 @@ const SubmissionsIndexPage = () => {
     return (
       <>
         <Head>
-          <title>Submissions - Peer Grading</title>
-          <meta name="description" content="Peer grading meta desc..." />
+          <title>Radovi - PeerGrader</title>
+          <meta name="description" content="PeerGrader meta desc..." />
           <link rel="icon" href="/favicon.ico" />
         </Head>
         <Container>
           <Row>
-            <h1>{task!.name} submissions</h1>
+            <h1>{task!.name} radovi</h1>
           </Row>
           <TaskInformation user={user} mutateGrading={mutate} task={task!} />
           <SubmissionList submissions={submissions} />

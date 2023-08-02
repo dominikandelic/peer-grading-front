@@ -43,7 +43,7 @@ export const TaskActionButtons = ({
             }}
             variant="primary"
           >
-            Result
+            Rezultat
           </Button>
         ) : (
           <StartGradingButton
@@ -59,7 +59,7 @@ export const TaskActionButtons = ({
           }}
           variant="warning"
         >
-          Edit
+          Uredi
         </Button>
         <Button
           onClick={(e) => {
@@ -68,17 +68,17 @@ export const TaskActionButtons = ({
           }}
           variant="danger"
         >
-          Delete
+          Obriši
         </Button>
       </ButtonGroup>
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Delete task</Modal.Title>
+          <Modal.Title>Obriši zadatak</Modal.Title>
         </Modal.Header>
-        <Modal.Body>Are you sure you want to delete this task?</Modal.Body>
+        <Modal.Body>Jesi li siguran/na da želiš obrisati zadatak?</Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
-            Close
+            Zatvori
           </Button>
           <Button
             variant="danger"
@@ -89,7 +89,7 @@ export const TaskActionButtons = ({
                   `${BASE_URL}/api/tasks/${task.id}`
                 );
                 handleClose();
-                toast.success("Deleted task");
+                toast.success("Zadatak obrisan");
                 router.push(`/tasks/`);
               } catch (e) {
                 if (e instanceof AxiosError) {
@@ -98,7 +98,7 @@ export const TaskActionButtons = ({
               }
             }}
           >
-            Yes, delete
+            Da, obriši
           </Button>
         </Modal.Footer>
       </Modal>

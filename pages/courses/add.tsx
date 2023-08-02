@@ -42,42 +42,42 @@ const AddCoursePage = () => {
   return (
     <>
       <Head>
-        <title>Add course - Peer Grading</title>
-        <meta name="description" content="Peer grading meta desc..." />
+        <title>Dodaj kolegij - PeerGrader</title>
+        <meta name="description" content="PeerGrader meta desc..." />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Container>
         <Row>
           <Col>
-            <h1>Add course </h1>
+            <h1>Dodaj kolegij </h1>
           </Col>
         </Row>
         <Col>
           <Form onSubmit={handleSubmit(onSubmit)}>
             <Row>
               <Form.Group className="mb-3">
-                <Form.Label>Course</Form.Label>
+                <Form.Label>Kolegij</Form.Label>
                 <Form.Control
                   {...register("name")}
                   type="text"
-                  placeholder="Course name"
+                  placeholder="Naziv kolegija"
                 />
               </Form.Group>
             </Row>
             <Row>
               <Form.Group className="mb-3">
-                <Form.Label>Teacher</Form.Label>
+                <Form.Label>Profesor</Form.Label>
                 <Form.Select {...register("teacher_id")}>
-                  {isLoading && <option>Loading...</option>}
-                  {isError && <option>Error fetching teachers</option>}
+                  {isLoading && <option>Učitavam...</option>}
+                  {isError && (
+                    <option>Pogreška prilikom dohvaćanja profesora</option>
+                  )}
                   {teachers &&
                     teachers.map((teacher) => {
                       return (
                         <option key={teacher.id} value={teacher.id}>
                           {`${teacher.first_name} ${teacher.last_name}`}{" "}
-                          {user &&
-                            teacher.username === user.username &&
-                            "(you)"}
+                          {user && teacher.username === user.username && "(ti)"}
                         </option>
                       );
                     })}
@@ -86,7 +86,7 @@ const AddCoursePage = () => {
             </Row>
             <Row>
               <Button variant="primary" type="submit">
-                Submit
+                Podnesi
               </Button>
             </Row>
           </Form>

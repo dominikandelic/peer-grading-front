@@ -23,7 +23,7 @@ const LoginPage = () => {
   } = useForm<LoginArgs>();
   const onSubmit: SubmitHandler<LoginArgs> = async (data) => {
     try {
-      const response = await axios.post(`${BASE_URL}/api/token/pair7`, {
+      const response = await axios.post(`${BASE_URL}/api/token/pair`, {
         username: data.username,
         password: data.password,
       });
@@ -45,35 +45,31 @@ const LoginPage = () => {
     <>
       <Container>
         <Head>
-          <title>Login - Peer Grading</title>
-          <meta name="description" content="Peer grading meta desc..." />
+          <title>Prijava - PeerGrader</title>
+          <meta name="description" content="PeerGrader meta desc..." />
           <link rel="icon" href="/favicon.ico" />
         </Head>
         <Col>
           <Form onSubmit={handleSubmit(onSubmit)}>
             <Row>
               <Form.Group className="mb-3">
-                <Form.Label>Username</Form.Label>
+                <Form.Label>Korisničko ime</Form.Label>
                 <Form.Control
                   {...register("username")}
                   type="text"
-                  placeholder="Username"
+                  placeholder="peroperic"
                 />
               </Form.Group>
             </Row>
             <Row>
               <Form.Group className="mb-3">
-                <Form.Label>Password</Form.Label>
-                <Form.Control
-                  {...register("password")}
-                  type="password"
-                  placeholder="Password"
-                />
+                <Form.Label>Lozinka</Form.Label>
+                <Form.Control {...register("password")} type="password" />
               </Form.Group>
             </Row>
             <Row>
               <Button variant="primary" type="submit">
-                Submit
+                Podnesi
               </Button>
             </Row>
           </Form>

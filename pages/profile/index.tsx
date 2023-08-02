@@ -52,24 +52,24 @@ const ProfileIndexPage = () => {
   return (
     <>
       <Head>
-        <title>Profile - Peer Grading</title>
-        <meta name="description" content="Peer grading meta desc..." />
+        <title>Profil - PeerGrader</title>
+        <meta name="description" content="PeerGrader meta desc..." />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Container>
         <Row>
           <Col>
-            <h1>Profile</h1>
+            <h1>Profil</h1>
           </Col>
         </Row>
-        {isError && <div>Error</div>}
-        {isLoading && <div>Loading</div>}
+        {isError && <div>Pogreška</div>}
+        {isLoading && <div>Učitavam</div>}
         {user && (
           <>
             <Form onSubmit={handleSubmit(onSubmit)}>
               <Row>
                 <Form.Group className="mb-3">
-                  <Form.Label>First Name</Form.Label>
+                  <Form.Label>Ime</Form.Label>
                   <Form.Control
                     {...register("firstName")}
                     type="text"
@@ -79,7 +79,7 @@ const ProfileIndexPage = () => {
               </Row>
               <Row>
                 <Form.Group className="mb-3">
-                  <Form.Label>First Name</Form.Label>
+                  <Form.Label>Prezime</Form.Label>
                   <Form.Control
                     {...register("lastName")}
                     type="text"
@@ -89,12 +89,12 @@ const ProfileIndexPage = () => {
               </Row>
               <Row>
                 <Form.Group className="mb-3">
-                  <Form.Label>Role</Form.Label>
+                  <Form.Label>Uloga</Form.Label>
                   <Form.Control
                     readOnly
                     disabled
                     type="text"
-                    defaultValue={user.is_student ? "Student" : "Teacher"}
+                    defaultValue={user.is_student ? "Student" : "Profesor"}
                   />
                 </Form.Group>
               </Row>

@@ -6,25 +6,33 @@ import useProtectedRoute from "../../hooks/useProtectedRoute";
 import useCourses from "../../hooks/useCourses";
 import useUser from "../../hooks/useUser";
 import CourseList from "../../components/courses/CourseList";
+import { ErrorContainer } from "../../components/util/ErrorContainer";
+import { LoadingContainer } from "../../components/util/LoadingContainer";
 
 const CoursesIndexPage = () => {
   useProtectedRoute();
   const { user, isError: isErrorUser, isLoading: isLoadingUser } = useUser();
   const { courses, isError, isLoading } = useCourses();
   const router = useRouter();
+  if (isError || isErrorUser) {
+    return <ErrorContainer />;
+  }
+  if (isLoadingUser || isLoading) {
+    return <LoadingContainer />;
+  }
 
   return (
     <>
       <Head>
-        <title>All Courses - Peer Grading</title>
-        <meta name="description" content="Peer grading meta desc..." />
+        <title>Svi kolegiji - PeerGrader</title>
+        <meta name="description" content="PeerGrader meta desc..." />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Container>
         <Row>
           <Col>
             <h1>
-              All Courses{" "}
+              Svi kolegiji{" "}
               {user && (user.is_teacher || user.is_superuser) && (
                 <AiFillPlusCircle
                   className="plus-icon"
@@ -37,8 +45,6 @@ const CoursesIndexPage = () => {
             </h1>
           </Col>
         </Row>
-        {(isError || isErrorUser) && <div>Error</div>}
-        {(isLoadingUser || isLoading) && <div>Loading</div>}
         {courses && <CourseList courses={courses} />}
       </Container>
     </>

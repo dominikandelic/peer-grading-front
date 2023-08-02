@@ -22,14 +22,14 @@ export const ProfileActionButtons: React.FC<ProfileActionButtonsProps> = ({
   const handleShow = () => setShow(true);
 
   const DELETION_MESSAGE =
-    loggedInUser?.id === user.id ? "your profile" : "this user";
+    loggedInUser?.id === user.id ? "svoj profil" : "ovog korisnika";
 
   return (
     <Row>
       <ButtonGroup>
         {(loggedInUser!.id === user.id || loggedInUser?.is_superuser) && (
           <Button variant="primary" type="submit">
-            Submit
+            Podnesi
           </Button>
         )}
         <Button
@@ -39,19 +39,19 @@ export const ProfileActionButtons: React.FC<ProfileActionButtonsProps> = ({
           }}
           variant="danger"
         >
-          Delete
+          Obriši
         </Button>
       </ButtonGroup>
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Delete {DELETION_MESSAGE}</Modal.Title>
+          <Modal.Title>Obriši {DELETION_MESSAGE}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          Are you sure you want to delete {DELETION_MESSAGE}?
+          Jesi li siguran/na da želiš obrisati {DELETION_MESSAGE}?
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
-            Close
+            Zatvori
           </Button>
           <Button
             variant="danger"
@@ -62,7 +62,7 @@ export const ProfileActionButtons: React.FC<ProfileActionButtonsProps> = ({
                   `${BASE_URL}/api/users/${user.id}`
                 );
                 handleClose();
-                toast.success("Deleted user");
+                toast.success("Obrisan korisnik");
                 router.push(`/`);
               } catch (e) {
                 if (e instanceof AxiosError) {
@@ -71,7 +71,7 @@ export const ProfileActionButtons: React.FC<ProfileActionButtonsProps> = ({
               }
             }}
           >
-            Yes, delete
+            Da, obriši
           </Button>
         </Modal.Footer>
       </Modal>

@@ -17,24 +17,24 @@ const LoggedInLinks = ({ router }: { router: NextRouter }) => {
       {!user?.is_student && (
         <Link href="/courses" passHref legacyBehavior>
           <Nav.Link active={router.pathname == "/courses"}>
-            All Courses
+            Svi kolegiji
           </Nav.Link>
         </Link>
       )}
       {!user?.is_superuser && (
         <Link href="/courses/my" passHref legacyBehavior>
           <Nav.Link active={router.pathname == "/courses/my"}>
-            My Courses
+            Moji kolegiji
           </Nav.Link>
         </Link>
       )}
 
       <Link href="/tasks" passHref legacyBehavior>
-        <Nav.Link active={router.pathname == "/tasks"}>Tasks</Nav.Link>
+        <Nav.Link active={router.pathname == "/tasks"}>Zadaci</Nav.Link>
       </Link>
-      <NavDropdown active={router.pathname == "/profile"} title="Profile">
+      <NavDropdown active={router.pathname == "/profile"} title="Profil">
         <Link href="/profile" passHref legacyBehavior>
-          <NavDropdown.Item>Details</NavDropdown.Item>
+          <NavDropdown.Item>Detalji</NavDropdown.Item>
         </Link>
         <NavDropdown.Divider />
         <NavDropdown.Item
@@ -45,7 +45,7 @@ const LoggedInLinks = ({ router }: { router: NextRouter }) => {
             router.push("/");
           }}
         >
-          Logout
+          Odjava
         </NavDropdown.Item>
       </NavDropdown>
     </>
@@ -56,9 +56,9 @@ const PublicLinks = ({ router }: { router: NextRouter }) => {
   return (
     <>
       <Link href="/login" passHref legacyBehavior>
-        <Nav.Link active={router.pathname == "/login"}>Login</Nav.Link>
+        <Nav.Link active={router.pathname == "/login"}>Prijava</Nav.Link>
       </Link>
-      <NavDropdown title="Register">
+      <NavDropdown title="Registracija">
         <Link href="/register/student" passHref legacyBehavior>
           <NavDropdown.Item active={router.pathname == "/register/student"}>
             Student
@@ -66,7 +66,7 @@ const PublicLinks = ({ router }: { router: NextRouter }) => {
         </Link>
         <Link href="/register/teacher" passHref legacyBehavior>
           <NavDropdown.Item active={router.pathname == "/register/teacher"}>
-            Teacher
+            Profesor
           </NavDropdown.Item>
         </Link>
       </NavDropdown>
@@ -82,7 +82,7 @@ const Navigation = () => {
     <Navbar sticky="top" bg="dark" variant="dark">
       <Container>
         <Link href="/" passHref legacyBehavior>
-          <Navbar.Brand>Peer Grading</Navbar.Brand>
+          <Navbar.Brand>PeerGrader</Navbar.Brand>
         </Link>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">

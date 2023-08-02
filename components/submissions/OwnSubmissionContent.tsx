@@ -41,7 +41,7 @@ const OwnSubmissionContent = ({
           },
         }
       );
-      toast.success(`Submission updated`);
+      toast.success(`Rad ažuriran`);
       mutate();
     } catch (e) {
       if (e instanceof AxiosError) {
@@ -53,11 +53,11 @@ const OwnSubmissionContent = ({
   return (
     <Container>
       <Row>
-        <h1>{`${submission.student.first_name} ${submission.student.last_name}'s submission`}</h1>
+        <h1>{`${submission.student.first_name} ${submission.student.last_name} - rad`}</h1>
       </Row>
       <Row className="mb-3">
         <a target="_blank" href={url}>
-          View submission
+          Pregledaj rad
         </a>
       </Row>
       <Row>
@@ -65,13 +65,13 @@ const OwnSubmissionContent = ({
           <Form onSubmit={handleSubmit(onSubmit)}>
             <Row>
               <Form.Group className="mb-3">
-                <Form.Label>Change submission</Form.Label>
+                <Form.Label>Ažuriraj rad</Form.Label>
                 <Form.Control {...register("file")} type="file" />
               </Form.Group>
             </Row>
             <Row>
               <Button variant="primary" type="submit">
-                Submit
+                Podnesi
               </Button>
             </Row>
           </Form>

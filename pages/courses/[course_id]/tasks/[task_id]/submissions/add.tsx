@@ -84,12 +84,12 @@ const AddSubmissionPage = () => {
     return (
       <Container>
         <Head>
-          <title>Add submission - Peer Grading</title>
-          <meta name="description" content="Peer grading meta desc..." />
+          <title>Dodaj rad - PeerGrader</title>
+          <meta name="description" content="PeerGrader meta desc..." />
           <link rel="icon" href="/favicon.ico" />
         </Head>
         <Alert variant="warning">
-          Can't submit anymore, grading has started!
+          Ne možete više dodavati radove, ocjenjivanje je počelo!
         </Alert>
       </Container>
     );
@@ -99,29 +99,29 @@ const AddSubmissionPage = () => {
     return (
       <>
         <Head>
-          <title>Add submission - Peer Grading</title>
-          <meta name="description" content="Peer grading meta desc..." />
+          <title>Dodaj rad - PeerGrader</title>
+          <meta name="description" content="PeerGrader meta desc..." />
           <link rel="icon" href="/favicon.ico" />
         </Head>
         <Container>
           <Row>
             <Col>
-              <h1>Add submission for - {task!.name}</h1>
+              <h1>Dodaj rad za - {task!.name}</h1>
             </Col>
           </Row>
-          <Row>Task: {task!.name}</Row>
-          <Row>Instructions: {task.grading.instructions}</Row>
+          <Row>Zadatak: {task!.name}</Row>
+          <Row>Upute: {task.grading.instructions}</Row>
           <Col>
             <Form onSubmit={handleSubmit(onSubmit)}>
               <Row>
                 <Form.Group className="mb-3">
-                  <Form.Label>Your submission</Form.Label>
+                  <Form.Label>Tvoj rad</Form.Label>
                   <Form.Control {...register("file")} type="file" />
                 </Form.Group>
               </Row>
               <Row>
                 <Button variant="primary" type="submit">
-                  Submit
+                  Podnesi
                 </Button>
               </Row>
             </Form>

@@ -50,14 +50,14 @@ const AddTaskPage = () => {
   return (
     <>
       <Head>
-        <title>Add task - Peer Grading</title>
-        <meta name="description" content="Peer grading meta desc..." />
+        <title>Dodaj zadatak - PeerGrader</title>
+        <meta name="description" content="PeerGrader meta desc..." />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Container>
         <Row>
           <Col>
-            <h1>Add task </h1>
+            <h1>Dodaj zadatak </h1>
           </Col>
         </Row>
         <Col>
@@ -73,11 +73,11 @@ const AddTaskPage = () => {
               </Form.Group>
             </Row>
             <Row>
-              <h2>Grading</h2>
+              <h2>Ocjenjivanje</h2>
             </Row>
             <Row>
               <Form.Group className="mb-3">
-                <Form.Label>Instructions</Form.Label>
+                <Form.Label>Upute</Form.Label>
                 <Form.Control
                   as="textarea"
                   rows={3}
@@ -88,7 +88,7 @@ const AddTaskPage = () => {
             <Row>
               <Form.Group className="mb-3">
                 <Form.Label>
-                  How many submissions do students compare?
+                  Koliko radova studenti uspoređuju i ocjenjuju?
                 </Form.Label>
                 <Form.Control
                   {...register("submissions_number")}
@@ -99,13 +99,13 @@ const AddTaskPage = () => {
             </Row>
             <Row>
               <Form.Group className="mb-3">
-                <Form.Label>Deadline</Form.Label>
+                <Form.Label>Rok</Form.Label>
                 <Form.Control {...register("deadline")} type="datetime-local" />
               </Form.Group>
             </Row>
             <Row>
               <Button variant="primary" type="submit">
-                Submit
+                Podnesi
               </Button>
             </Row>
           </Form>

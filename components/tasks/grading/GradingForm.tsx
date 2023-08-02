@@ -33,7 +33,7 @@ export const GradingForm = ({ submissions, taskId }: GradingFormProps) => {
           grade: Number(item.grade),
         }))
       );
-      toast.success("Successfully graded, taking you back to the tasks screen");
+      toast.success("Uspješno ocijenjeno, vodim nazad na ekran sa zadacima");
       router.back();
     } catch (e) {
       if (e instanceof AxiosError) {
@@ -46,8 +46,8 @@ export const GradingForm = ({ submissions, taskId }: GradingFormProps) => {
     <form onSubmit={handleSubmit(onSubmit)}>
       <Row>
         <h2>
-          Grade each submission from 1 to {submissions.length}, with{" "}
-          {submissions.length} being the best
+          Ocijeni svaki rad od 1 do {submissions.length}, uz napomenu da je{" "}
+          {submissions.length} najbolje
         </h2>
         <span></span>
         {submissions.map((submission: SubmissionResponse, index) => {
@@ -59,7 +59,7 @@ export const GradingForm = ({ submissions, taskId }: GradingFormProps) => {
               key={submission.id}
             >
               <Card.Body>
-                <Card.Title>Submission #{index + 1}</Card.Title>
+                <Card.Title>Rad #{index + 1}</Card.Title>
                 <Card.Subtitle className="mb-2 text-muted">
                   <Form.Group>
                     <input
@@ -67,7 +67,7 @@ export const GradingForm = ({ submissions, taskId }: GradingFormProps) => {
                       {...register(`${index}.submission_id`)}
                       defaultValue={submission.id}
                     />
-                    <Form.Label>Grade:</Form.Label>
+                    <Form.Label>Ocjena:</Form.Label>
                     <Form.Control
                       min="1"
                       max={submissions.length}
@@ -77,7 +77,7 @@ export const GradingForm = ({ submissions, taskId }: GradingFormProps) => {
                   </Form.Group>
                 </Card.Subtitle>
                 <Card.Link target="_blank" href={url}>
-                  View submission
+                  Pregledaj rad
                 </Card.Link>
               </Card.Body>
             </Card>
@@ -88,7 +88,7 @@ export const GradingForm = ({ submissions, taskId }: GradingFormProps) => {
           type="submit"
           variant="primary"
         >
-          Submit
+          Podnesi
         </Button>
       </Row>
     </form>

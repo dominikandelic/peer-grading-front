@@ -31,17 +31,17 @@ const TeacherCourseContent = ({ user }: TeacherCourseContentProps) => {
   } = useCourseTasks(Number(router.query.course_id));
   return (
     <>
-      {(isError || isErrorStudent || isErrorTask) && <div>Error</div>}
+      {(isError || isErrorStudent || isErrorTask) && <div>Pogreška</div>}
       {(isLoading || isLoadingStudent || isLoadingTask) && (
-        <div>Loading...</div>
+        <div>Učitavam...</div>
       )}
       {course && tasks && students && user && (
         <>
           <Row>
-            <Col>Name: {course.name}</Col>
+            <Col>Naziv: {course.name}</Col>
           </Row>
           <Col>
-            Teacher: {course.teacher.first_name} {course.teacher.last_name}
+            Profesor: {course.teacher.first_name} {course.teacher.last_name}
           </Col>
           <Row>
             {(course.teacher!.id === user.id || user.is_superuser) && (
@@ -52,7 +52,7 @@ const TeacherCourseContent = ({ user }: TeacherCourseContentProps) => {
             <Col>
               {" "}
               <h3>
-                Enrolled students:{" "}
+                Upisani studenti:{" "}
                 <AiFillPlusCircle
                   className="plus-icon"
                   onClick={(e) => {
@@ -82,7 +82,7 @@ const TeacherCourseContent = ({ user }: TeacherCourseContentProps) => {
           </Row>
           <Row>
             <h3>
-              Tasks:{" "}
+              Zadaci:{" "}
               <AiFillPlusCircle
                 className="plus-icon"
                 onClick={(e) => {

@@ -36,7 +36,7 @@ const EditTaskPage = () => {
         deadline: data.deadline,
       };
       await authorizedAxios.put(`${BASE_URL}/api/tasks/${taskId}`, jsonData);
-      toast.success(`Edited task ${data.name}`);
+      toast.success(`Ažuriran zadatak ${data.name}`);
       mutate();
     } catch (e) {
       if (e instanceof AxiosError) {
@@ -50,21 +50,21 @@ const EditTaskPage = () => {
   return (
     <>
       <Head>
-        <title>Edit task - Peer Grading</title>
-        <meta name="description" content="Peer grading meta desc..." />
+        <title>Uredi zadatak - PeerGrader</title>
+        <meta name="description" content="PeerGrader meta desc..." />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Container>
         <Row>
           <Col>
-            <h1>Edit task </h1>
+            <h1>Uredi zadatak </h1>
           </Col>
         </Row>
         <Col>
           <Form onSubmit={handleSubmit(onSubmit)}>
             <Row>
               <Form.Group className="mb-3">
-                <Form.Label>Name</Form.Label>
+                <Form.Label>Naziv</Form.Label>
                 <Form.Control
                   {...register("name")}
                   type="text"
@@ -73,11 +73,11 @@ const EditTaskPage = () => {
               </Form.Group>
             </Row>
             <Row>
-              <h2>Grading</h2>
+              <h2>Ocjenjivanje</h2>
             </Row>
             <Row>
               <Form.Group className="mb-3">
-                <Form.Label>Instructions</Form.Label>
+                <Form.Label>Upute</Form.Label>
                 <Form.Control
                   {...register("instructions")}
                   as="textarea"
@@ -89,7 +89,7 @@ const EditTaskPage = () => {
             <Row>
               <Form.Group className="mb-3">
                 <Form.Label>
-                  How many submissions do students compare?
+                  Koliko radova studenti uspoređuju i ocjenjuju?
                 </Form.Label>
                 <Form.Control
                   {...register("submissions_number")}
@@ -101,7 +101,7 @@ const EditTaskPage = () => {
             </Row>
             <Row>
               <Form.Group className="mb-3">
-                <Form.Label>Deadline</Form.Label>
+                <Form.Label>Rok</Form.Label>
                 <Form.Control
                   {...register("deadline")}
                   type="datetime-local"
@@ -115,7 +115,7 @@ const EditTaskPage = () => {
             </Row>
             <Row>
               <Button variant="primary" type="submit">
-                Submit
+                Podnesi
               </Button>
             </Row>
           </Form>

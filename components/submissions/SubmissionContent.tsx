@@ -16,20 +16,22 @@ const SubmissionContent = ({ taskId }: SubmissionContentProps) => {
   if (isError) return <ErrorContainer />;
   if (isLoading) return <LoadingContainer />;
 
-  const url = `${BASE_URL}${submission.file}`;
+  if (submission) {
+    const url = `${BASE_URL}${submission.file}`;
 
-  return (
-    <Container>
-      <Row>
-        <h1>{`${submission.student.first_name} ${submission.student.last_name}'s submission`}</h1>
-      </Row>
-      <Row>
-        <a target="_blank" href={url}>
-          Link
-        </a>
-      </Row>
-    </Container>
-  );
+    return (
+      <Container>
+        <Row>
+          <h1>{`${submission.student.first_name} ${submission.student.last_name} - rad`}</h1>
+        </Row>
+        <Row>
+          <a target="_blank" href={url}>
+            Poveznica
+          </a>
+        </Row>
+      </Container>
+    );
+  }
 };
 
 export default SubmissionContent;

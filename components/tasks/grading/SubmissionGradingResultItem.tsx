@@ -18,7 +18,7 @@ export const SubmissionGradingResultItem: React.FC<
   return (
     <ListGroup.Item key={submissionGrade.id}>
       <div className="d-flex justify-content-between align-items-center">
-        <div>Grader #{index + 1}</div>
+        <div>Ocjenjivač #{index + 1}</div>
         <Badge pill bg="primary">
           {submissionGrade.grade}
         </Badge>

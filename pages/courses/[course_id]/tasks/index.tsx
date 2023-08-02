@@ -16,14 +16,14 @@ const TasksIndexPage = () => {
   return (
     <>
       <Head>
-        <title>{course.name} - Tasks - Peer Grading</title>
-        <meta name="description" content="Peer grading meta desc..." />
+        <title>{course.name} - Zadaci - PeerGrader</title>
+        <meta name="description" content="PeerGrader meta desc..." />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Container>
         <Row>
           <h1>
-            {course.name} tasks{" "}
+            {course.name} zadaci{" "}
             <AiFillPlusCircle
               className="plus-icon"
               onClick={(e) => {

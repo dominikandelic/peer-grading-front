@@ -24,10 +24,10 @@ const TaskStudentCard: React.FC<TaskStudentCardProps> = ({
       <Card.Body>
         <Card.Title>{task.name}</Card.Title>
         <Card.Subtitle className="mb-2 text-muted">
-          Deadline: {DateTime.fromISO(task.deadline).toFormat("dd.LL.yyyy. TT")}
+          Rok: {DateTime.fromISO(task.deadline).toFormat("dd.LL.yyyy. TT")}
         </Card.Subtitle>
         <Card.Text>
-          Created at:{" "}
+          Kreiran:{" "}
           {DateTime.fromISO(task.created_at).toFormat("dd.LL.yyyy. TT")}
         </Card.Text>
         <Button
@@ -55,7 +55,7 @@ const TaskStudentCard: React.FC<TaskStudentCardProps> = ({
               const hasAlreadyGraded = hasAlreadyGradedResponse.data;
               if (hasAlreadyGraded) {
                 toast.info(
-                  "You've already graded submissions for this task, please wait for the results"
+                  "Već si ocijenio/la radove za ovaj zadatak. Molimo, sačekaj rezultate"
                 );
               } else {
                 router.push(`/grading/${task.id}`);

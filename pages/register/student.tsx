@@ -39,7 +39,7 @@ const RegisterTeacherPage = () => {
         accessToken: response.data.access,
         refreshToken: response.data.refresh,
       });
-      toast.success("Success. You can login now");
+      toast.success("Uspjeh, možeš se prijaviti sada");
       router.push("/login");
     } catch (e) {
       if (e instanceof AxiosError) {
@@ -52,8 +52,8 @@ const RegisterTeacherPage = () => {
     <>
       <Container>
         <Head>
-          <title>Register student - Peer Grading</title>
-          <meta name="description" content="Peer grading meta desc..." />
+          <title>Registracija - PeerGrader</title>
+          <meta name="description" content="PeerGrader meta desc..." />
           <link rel="icon" href="/favicon.ico" />
         </Head>
         <Col>
@@ -61,47 +61,43 @@ const RegisterTeacherPage = () => {
           <Form onSubmit={handleSubmit(onSubmit)}>
             <Row>
               <Form.Group className="mb-3">
-                <Form.Label>First Name</Form.Label>
+                <Form.Label>Ime</Form.Label>
                 <Form.Control
                   {...register("firstName")}
                   type="text"
-                  placeholder="John"
+                  placeholder="Pero"
                 />
               </Form.Group>
             </Row>
             <Row>
               <Form.Group className="mb-3">
-                <Form.Label>Last Name</Form.Label>
+                <Form.Label>Prezime</Form.Label>
                 <Form.Control
                   {...register("lastName")}
                   type="text"
-                  placeholder="Doe"
+                  placeholder="Perić"
                 />
               </Form.Group>
             </Row>
             <Row>
               <Form.Group className="mb-3">
-                <Form.Label>Username</Form.Label>
+                <Form.Label>Korisničko ime</Form.Label>
                 <Form.Control
                   {...register("username")}
                   type="text"
-                  placeholder="Username"
+                  placeholder="peroperic"
                 />
               </Form.Group>
             </Row>
             <Row>
               <Form.Group className="mb-3">
-                <Form.Label>Password</Form.Label>
-                <Form.Control
-                  {...register("password")}
-                  type="password"
-                  placeholder="Password"
-                />
+                <Form.Label>Lozinka</Form.Label>
+                <Form.Control {...register("password")} type="password" />
               </Form.Group>
             </Row>
             <Row>
               <Button variant="primary" type="submit">
-                Submit
+                Podnesi
               </Button>
             </Row>
           </Form>

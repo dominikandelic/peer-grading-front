@@ -11,7 +11,7 @@ type CourseListProps = {
 const CourseList = ({ courses }: CourseListProps) => {
   const router = useRouter();
   const userId = useStore(useAuthStore, (store) => store.user?.id);
-  if (courses.length === 0) return <Row>No data</Row>;
+  if (courses.length === 0) return <Row>Nema podataka za prikaz</Row>;
   return (
     <Row>
       {courses.map((course: CourseResponse) => {
@@ -35,7 +35,7 @@ const CourseList = ({ courses }: CourseListProps) => {
               <Card.Body>
                 <Card.Title>{course.name}</Card.Title>
                 <Card.Text>
-                  Teacher:{" "}
+                  Profesor:{" "}
                   {course.teacher &&
                     `${course.teacher.first_name} ${course.teacher.last_name}`}
                 </Card.Text>

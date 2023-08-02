@@ -22,10 +22,10 @@ export const SubmissionList = ({ submissions }: SubmissionListProps) => {
                 {submission.student.first_name} {submission.student.last_name}
               </Card.Title>
               <Card.Subtitle className="mb-2 text-muted">
-                Created at: {submission.created_at}
+                Kreiran: {submission.created_at}
               </Card.Subtitle>
               <Card.Link target="_blank" href={url}>
-                View submission
+                Pregledaj rad
               </Card.Link>
             </Card.Body>
           </Card>

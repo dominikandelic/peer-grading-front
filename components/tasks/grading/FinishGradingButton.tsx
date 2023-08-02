@@ -26,7 +26,7 @@ export const FinishGradingButton = ({
             }
           );
           mutateGrading();
-          toast.success("Grading finished");
+          toast.success("Ocjenjivanje završeno");
         } catch (e) {
           if (e instanceof AxiosError) {
             toast.error(e.message);
@@ -35,7 +35,7 @@ export const FinishGradingButton = ({
       }}
       variant="success"
     >
-      Finish grading - show results
+      Završi ocjenjivanje - pokaži rezultate
     </Button>
   );
 };

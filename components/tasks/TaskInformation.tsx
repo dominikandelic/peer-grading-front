@@ -26,12 +26,12 @@ export const TaskInformation = ({
       <Card.Body>
         <Row>
           <span>
-            Task: <b>{task.name}</b>
+            Zadatak: <b>{task.name}</b>
           </span>
         </Row>
         <Row>
           <span>
-            Created:{" "}
+            Kreiran:{" "}
             <b>
               {DateTime.fromISO(task.created_at).toFormat("dd.LL.yyyy. TT")}
             </b>
@@ -39,17 +39,17 @@ export const TaskInformation = ({
         </Row>
         <Row>
           <span>
-            Deadline:{" "}
+            Rok:{" "}
             <b>{DateTime.fromISO(task.deadline).toFormat("dd.LL.yyyy. TT")}</b>
           </span>
         </Row>
         <Row>
-          <span>Instructions: {task.grading.instructions}</span>
+          <span>Upute: {task.grading.instructions}</span>
         </Row>
         {user.is_teacher && (
           <Row>
             <span>
-              Number of random submissions for students to compare:{" "}
+              Koliko radova studenti uspoređuju i ocjenjuju?{" "}
               {task.grading.submissions_number}
             </span>
           </Row>

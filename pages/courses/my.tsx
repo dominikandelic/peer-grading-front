@@ -18,15 +18,15 @@ const MyCoursesPage = () => {
   return (
     <>
       <Head>
-        <title>My Courses - Peer Grading</title>
-        <meta name="description" content="Peer grading meta desc..." />
+        <title>Moji kolegiji - PeerGrader</title>
+        <meta name="description" content="PeerGrader meta desc..." />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Container>
         <Row>
           <Col>
             <h1>
-              My Courses{" "}
+              Moji kolegiji{" "}
               {user && user.is_teacher && (
                 <AiFillPlusCircle
                   className="plus-icon"

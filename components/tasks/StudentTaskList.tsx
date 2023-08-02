@@ -12,7 +12,7 @@ type StudentTaskListProps = {
 const StudentTaskList = ({ tasks }: StudentTaskListProps) => {
   const router = useRouter();
   const { authorizedAxios } = useAuthorizedAxios();
-  if (tasks.length === 0) return <Row>No data</Row>;
+  if (tasks.length === 0) return <Row>Nema podataka za prikaz</Row>;
   // Create an empty Map to store the grouped tasks
 
   const groupedTasks = tasks.reduce((acc, task) => {

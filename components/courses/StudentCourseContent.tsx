@@ -24,20 +24,20 @@ const StudentCourseContent = ({
   } = useCourseTasks(courseId);
   return (
     <>
-      {(isError || isErrorTask) && <div>Error</div>}
-      {(isLoading || isLoadingTask) && <div>Loading...</div>}
+      {(isError || isErrorTask) && <div>Pogreška</div>}
+      {(isLoading || isLoadingTask) && <div>Učitavam...</div>}
       {course && tasks && user && (
         <>
           <Row>
-            <Col>Name: {course.name}</Col>
+            <Col>Naziv: {course.name}</Col>
           </Row>
           <Row>
             <Col>
-              Teacher: {course.teacher.first_name} {course.teacher.last_name}
+              Profesor: {course.teacher.first_name} {course.teacher.last_name}
             </Col>
           </Row>
           <Row>
-            <h3>Tasks: </h3>
+            <h3>Zadaci: </h3>
           </Row>
           <StudentTaskList tasks={tasks} />
         </>

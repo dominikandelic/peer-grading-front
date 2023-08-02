@@ -29,7 +29,7 @@ export const CourseActionButtons: React.FC<CourseActionButtonsProps> = ({
           }}
           variant="primary"
         >
-          Edit
+          Uredi
         </Button>
         <Button
           onClick={(e) => {
@@ -38,17 +38,19 @@ export const CourseActionButtons: React.FC<CourseActionButtonsProps> = ({
           }}
           variant="danger"
         >
-          Delete
+          Obriši
         </Button>
       </ButtonGroup>
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Delete course</Modal.Title>
+          <Modal.Title>Obriši kolegij</Modal.Title>
         </Modal.Header>
-        <Modal.Body>Are you sure you want to delete this course?</Modal.Body>
+        <Modal.Body>
+          Jesi li siguran/na da želiš da obrisati ovaj kolegij?
+        </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
-            Close
+            Zatvori
           </Button>
           <Button
             variant="danger"
@@ -59,7 +61,7 @@ export const CourseActionButtons: React.FC<CourseActionButtonsProps> = ({
                   `${BASE_URL}/api/courses/${course.id}`
                 );
                 handleClose();
-                toast.success("Deleted course");
+                toast.success("Obrisan kolegij");
                 router.push(`/courses/`);
               } catch (e) {
                 if (e instanceof AxiosError) {
@@ -68,7 +70,7 @@ export const CourseActionButtons: React.FC<CourseActionButtonsProps> = ({
               }
             }}
           >
-            Yes, delete
+            Da, obriši
           </Button>
         </Modal.Footer>
       </Modal>

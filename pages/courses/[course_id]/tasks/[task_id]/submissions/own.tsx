@@ -41,8 +41,8 @@ const OwnSubmissionPage = () => {
     return (
       <Container>
         <Head>
-          <title>Own submission - Peer Grading</title>
-          <meta name="description" content="Peer grading meta desc..." />
+          <title>Vlastiti rad - PeerGrader</title>
+          <meta name="description" content="PeerGrader meta desc..." />
           <link rel="icon" href="/favicon.ico" />
         </Head>
         <TaskInformation mutateGrading={mutate} task={task} user={user} />

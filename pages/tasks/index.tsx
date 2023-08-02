@@ -33,15 +33,13 @@ const ActiveTasksIndexPage = () => {
   return (
     <>
       <Head>
-        <title>Active Tasks - Peer Grading</title>
-        <meta name="description" content="Peer grading meta desc..." />
+        <title>Aktivni zadaci - PeerGrader</title>
+        <meta name="description" content="PeerGrader meta desc..." />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Container>
-        <h1>{user?.is_superuser ? "All" : "My"} Active Tasks</h1>
-        <span>
-          Note: These tasks are grouped by their corresponding statuses
-        </span>
+        <h1>{user?.is_superuser ? "Svi" : "Moji"} aktivni zadaci</h1>
+        <span>Napomena: Zadaci su grupirani po odgovarajućim statusima</span>
         {tasks && taskList}
       </Container>
     </>

@@ -36,11 +36,7 @@ const StudentTaskList = ({ tasks }: StudentTaskListProps) => {
               {tasks.map((task: TaskResponse) => {
                 return (
                   <Col sm="3">
-                    <TaskStudentCard
-                      router={router}
-                      authorizedAxios={authorizedAxios}
-                      task={task}
-                    />
+                    <TaskStudentCard task={task} />
                   </Col>
                 );
               })}

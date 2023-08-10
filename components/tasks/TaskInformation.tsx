@@ -7,6 +7,8 @@ import { StartGradingButton } from "./grading/StartGradingButton";
 import { useRouter } from "next/router";
 import { statusMapper } from "../../utils/grading/GradingStatusMapperUtil";
 import { TaskActionButtons } from "./TaskActionButtons";
+import Link from "next/link";
+import { StudentTaskButton } from "./StudentTaskButton";
 
 type GradingInformationProps = {
   task: TaskResponse;
@@ -19,14 +21,20 @@ export const TaskInformation = ({
   mutateGrading,
   user,
 }: GradingInformationProps) => {
-  const { authorizedAxios } = useAuthorizedAxios();
-  const router = useRouter();
   return (
     <Card>
       <Card.Body>
         <Row>
           <span>
             Zadatak: <b>{task.name}</b>
+          </span>
+        </Row>
+        <Row>
+          <span>
+            Kolegij:{" "}
+            <Link className="link" href={`/courses/${task.course.id}`}>
+              <b>{task.course.name}</b>
+            </Link>
           </span>
         </Row>
         <Row>
@@ -56,6 +64,7 @@ export const TaskInformation = ({
         )}
         <Row>
           <span>Status: {statusMapper.get(task.grading.status)}</span>
+          {user.is_student && <StudentTaskButton task={task} />}
         </Row>
         {user.is_teacher && (
           <TaskActionButtons

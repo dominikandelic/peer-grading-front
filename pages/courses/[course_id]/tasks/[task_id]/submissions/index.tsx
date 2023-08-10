@@ -16,13 +16,8 @@ const SubmissionsIndexPage = () => {
   const taskId = Number(router.query.task_id);
   const { task, isError, isLoading, mutate } = useTask(taskId);
   const user = useAuthStore((store) => store.user);
-  const {
-    submissions,
-    isError: isErrorSubmissions,
-    isLoading: isLoadingSubmissions,
-  } = useTaskSubmissions(taskId);
-  if (isError || isErrorSubmissions) return <ErrorContainer />;
-  if (isLoading || isLoadingSubmissions) return <LoadingContainer />;
+  if (isError) return <ErrorContainer />;
+  if (isLoading) return <LoadingContainer />;
   if (task && user) {
     return (
       <>
@@ -36,7 +31,7 @@ const SubmissionsIndexPage = () => {
             <h1>{task!.name} radovi</h1>
           </Row>
           <TaskInformation user={user} mutateGrading={mutate} task={task!} />
-          <SubmissionList submissions={submissions} />
+          <SubmissionList taskId={taskId} />
         </Container>
       </>
     );

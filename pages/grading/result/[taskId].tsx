@@ -42,6 +42,7 @@ const GradingResultPage = () => {
           <span>
             Kolegij:{" "}
             <Link
+              className="link"
               href={`/courses/${gradingResults[0].submission.submission_task.course.id}`}
             >
               {gradingResults[0].submission.submission_task.course.name}

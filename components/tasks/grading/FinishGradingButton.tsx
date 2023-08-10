@@ -35,7 +35,7 @@ export const FinishGradingButton = ({
       }}
       variant="success"
     >
-      Završi ocjenjivanje - pokaži rezultate
+      Završi ocjenjivanje - prikaži rezultate
     </Button>
   );
 };

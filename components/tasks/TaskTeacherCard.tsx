@@ -8,6 +8,7 @@ import { NextRouter, useRouter } from "next/router";
 import { toast } from "react-toastify";
 import { taskActionMapper } from "../../utils/grading/GradingStatusMapperUtil";
 import { TaskActionButtons } from "./TaskActionButtons";
+import Link from "next/link";
 
 type TaskTeacherCardProps = {
   task: TaskResponse;
@@ -23,7 +24,9 @@ const TaskTeacherCard: React.FC<TaskTeacherCardProps> = ({
   return (
     <Card>
       <Card.Body>
-        <Card.Title>{task.name}</Card.Title>
+        <Link className="link" href={`/tasks/${task.id}`}>
+          <Card.Title>{task.name}</Card.Title>
+        </Link>
         <Card.Subtitle className="mb-2 text-muted">
           Rok: {DateTime.fromISO(task.deadline).toFormat("dd.LL.yyyy. TT")}
         </Card.Subtitle>

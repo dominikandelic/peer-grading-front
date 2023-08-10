@@ -1,5 +1,3 @@
-import { GradingStatus } from "../../api/generated";
-
 export const statusMapper = new Map([
   ["STANDBY", "Studenti podnose svoje radove"],
   ["STARTED", "Studenti ocjenjuju radove kolega"],
@@ -7,7 +5,7 @@ export const statusMapper = new Map([
 ]);
 
 export const taskActionMapper = new Map<string, string>([
-  ["FINISHED", "Rezultat"],
+  ["FINISHED", "Rezultati"],
   ["STANDBY", "Podnesi"],
   ["STARTED", "Ocijeni"],
 ]);

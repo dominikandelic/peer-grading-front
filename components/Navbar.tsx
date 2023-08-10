@@ -41,7 +41,7 @@ const LoggedInLinks = ({ router }: { router: NextRouter }) => {
           onClick={async (e) => {
             mutate(/* match all keys */ () => true, undefined, false);
             set({ accessToken: "", refreshToken: "", username: "" });
-            toast.success("Success");
+            toast.success("Uspjeh");
             router.push("/");
           }}
         >

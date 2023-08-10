@@ -33,33 +33,45 @@ const TaskStudentCard: React.FC<TaskStudentCardProps> = ({
         <Button
           onClick={async (e) => {
             e.preventDefault();
-            if (task.grading.status === GradingStatus.STANDBY) {
+            if (
+              task.grading.status === GradingStatus.STANDBY ||
+              task.grading.status === GradingStatus.STARTED
+            ) {
               const hasSubmittedResponse = await authorizedAxios.get<boolean>(
                 `http://127.0.0.1:8000/api/tasks/${task.id}/student/has-submitted`
               );
               const hasAlreadySubmitted = hasSubmittedResponse.data;
-              if (hasAlreadySubmitted) {
-                router.push(
-                  `/courses/${task.course.id}/tasks/${task.id}/submissions/own`
-                );
+              // STANDBY
+              if (task.grading.status === GradingStatus.STANDBY) {
+                if (hasAlreadySubmitted) {
+                  router.push(
+                    `/courses/${task.course.id}/tasks/${task.id}/submissions/own`
+                  );
+                } else {
+                  router.push(
+                    `/courses/${task.course.id}/tasks/${task.id}/submissions/add`
+                  );
+                }
+                // STARTED
               } else {
-                router.push(
-                  `/courses/${task.course.id}/tasks/${task.id}/submissions/add`
-                );
+                const hasAlreadyGradedResponse =
+                  await authorizedAxios.get<boolean>(
+                    `http://127.0.0.1:8000/api/grading/${task.id}/has-graded`
+                  );
+                const hasAlreadyGraded = hasAlreadyGradedResponse.data;
+                if (hasAlreadyGraded) {
+                  toast.info(
+                    "Već si ocijenio/la radove za ovaj zadatak. Molimo, sačekaj rezultate"
+                  );
+                } else if (!hasAlreadySubmitted) {
+                  toast.info(
+                    "Ne možeš ocjenjivati zadatke jer nisi predao/la vlastito rješenje"
+                  );
+                } else {
+                  router.push(`/grading/${task.id}`);
+                }
               }
-            } else if (task.grading.status === GradingStatus.STARTED) {
-              const hasAlreadyGradedResponse =
-                await authorizedAxios.get<boolean>(
-                  `http://127.0.0.1:8000/api/grading/${task.id}/has-graded`
-                );
-              const hasAlreadyGraded = hasAlreadyGradedResponse.data;
-              if (hasAlreadyGraded) {
-                toast.info(
-                  "Već si ocijenio/la radove za ovaj zadatak. Molimo, sačekaj rezultate"
-                );
-              } else {
-                router.push(`/grading/${task.id}`);
-              }
+              // FINISHED
             } else {
               router.push(`/grading/result/${task.id}`);
             }

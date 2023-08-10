@@ -36,7 +36,7 @@ const AddTaskPage = () => {
         deadline: data.deadline,
       };
       await authorizedAxios.post(`${BASE_URL}/api/tasks`, jsonData);
-      toast.success(`Created task ${data.name}`);
+      toast.success(`Uspješno kreiran zadatak ${data.name}`);
       router.push(`/courses/${Number(router.query.course_id)}/`);
     } catch (e) {
       if (e instanceof AxiosError) {
@@ -64,11 +64,11 @@ const AddTaskPage = () => {
           <Form onSubmit={handleSubmit(onSubmit)}>
             <Row>
               <Form.Group className="mb-3">
-                <Form.Label>Name</Form.Label>
+                <Form.Label>Naziv</Form.Label>
                 <Form.Control
                   {...register("name")}
                   type="text"
-                  placeholder="Task name"
+                  placeholder="Naziv zadatka"
                 />
               </Form.Group>
             </Row>

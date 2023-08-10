@@ -30,7 +30,7 @@ const AddCoursePage = () => {
         name: data.name,
         teacher_id: data.teacher_id,
       });
-      toast.success(`Created course ${data.name}`);
+      toast.success(`Uspješno kreiran kolegij ${data.name}`);
       router.push("/courses");
     } catch (e) {
       if (e instanceof AxiosError) {

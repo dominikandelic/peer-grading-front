@@ -7,6 +7,8 @@ import { LoadingContainer } from "../../../../components/util/LoadingContainer";
 import useProtectedRoute from "../../../../hooks/useProtectedRoute";
 import useSubmissionGradingResults from "../../../../hooks/useSubmissionGradingResults";
 import { SubmissionGradingResultItem } from "../../../../components/tasks/grading/SubmissionGradingResultItem";
+import { BASE_URL } from "../../../../env";
+import Link from "next/link";
 
 const SubmissionGradingResultPage = () => {
   useProtectedRoute();
@@ -20,27 +22,46 @@ const SubmissionGradingResultPage = () => {
   if (submissionGradings?.length === 0) {
     return (
       <Container>
-        <Row>No data</Row>
+        <Row>Nema podataka za prikaz</Row>
       </Container>
     );
   }
   if (submissionGradings) {
+    const url = `${BASE_URL}${submissionGradings[0].submission.file.replace(
+      "uploads/",
+      ""
+    )}`;
     return (
       <Container>
         <Head>
-          <title>Submission grading results - Peer Grading</title>
-          <meta name="description" content="Peer grading meta desc..." />
+          <title>Rezultati pojedinog rada - PeerGrader</title>
+          <meta name="description" content="PeerGrader meta desc..." />
           <link rel="icon" href="/favicon.ico" />
         </Head>
-        <h1>
-          {submissionGradings[0].submission.submission_task.name} - deadline{" "}
+        <h1>{submissionGradings[0].submission.submission_task.name}</h1>
+        <span>
+          {" "}
+          Rok:{" "}
           {DateTime.fromISO(
             submissionGradings[0].submission.submission_task.deadline
           ).toFormat("dd.LL.yyyy. TT")}
-        </h1>
+        </span>
+        <p>
+          <span>
+            Kolegij:{" "}
+            <Link
+              href={`/courses/${submissionGradings[0].submission.submission_task.course.id}`}
+            >
+              {submissionGradings[0].submission.submission_task.course.name}
+            </Link>
+          </span>
+          <a className="d-block" target="_blank" href={url}>
+            Pregledaj rad
+          </a>
+        </p>
         <Card>
           <Card.Body>
-            <Card.Title>Grading results</Card.Title>
+            <Card.Title>Ocjene za rad</Card.Title>
             <ListGroup variant="flush">
               {submissionGradings.map((submissionGrade, index) => {
                 return (

@@ -43,7 +43,7 @@ export const TaskActionButtons = ({
             }}
             variant="primary"
           >
-            Rezultat
+            Rezultati
           </Button>
         ) : (
           <StartGradingButton

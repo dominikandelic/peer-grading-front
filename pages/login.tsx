@@ -32,7 +32,7 @@ const LoginPage = () => {
         accessToken: response.data.access,
         refreshToken: response.data.refresh,
       });
-      toast.success("Success");
+      toast.success("Uspjeh");
       router.push("/");
     } catch (e) {
       if (e instanceof AxiosError) {

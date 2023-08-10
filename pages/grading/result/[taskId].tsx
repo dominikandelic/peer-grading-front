@@ -7,6 +7,7 @@ import { LoadingContainer } from "../../../components/util/LoadingContainer";
 import { DateTime } from "luxon";
 import Head from "next/head";
 import { TaskGradingResultItem } from "../../../components/tasks/grading/TaskGradingResultItem";
+import Link from "next/link";
 
 const GradingResultPage = () => {
   useProtectedRoute();
@@ -19,7 +20,7 @@ const GradingResultPage = () => {
   if (gradingResults?.length === 0) {
     return (
       <Container>
-        <Row>No data</Row>
+        <Row>Nema podataka za prikaz</Row>
       </Container>
     );
   }
@@ -27,19 +28,35 @@ const GradingResultPage = () => {
     return (
       <Container>
         <Head>
-          <title>Grading results - Peer Grading</title>
-          <meta name="description" content="Peer grading meta desc..." />
+          <title>Rezultati zadatka - PeerGrader</title>
+          <meta name="description" content="PeerGrader meta desc..." />
           <link rel="icon" href="/favicon.ico" />
         </Head>
-        <h1>
-          {gradingResults[0].submission.submission_task.name} - deadline{" "}
-          {DateTime.fromISO(
-            gradingResults[0].submission.submission_task.deadline
-          ).toFormat("dd.LL.yyyy. TT")}
-        </h1>
+        <h1>{gradingResults[0].submission.submission_task.name}</h1>
+        <p>
+          <span className="d-block">
+            {" "}
+            Upute:{" "}
+            {gradingResults[0].submission.submission_task.grading.instructions}
+          </span>
+          <span>
+            Kolegij:{" "}
+            <Link
+              href={`/courses/${gradingResults[0].submission.submission_task.course.id}`}
+            >
+              {gradingResults[0].submission.submission_task.course.name}
+            </Link>
+          </span>
+          <span className="d-block">
+            Rok:{" "}
+            {DateTime.fromISO(
+              gradingResults[0].submission.submission_task.deadline
+            ).toFormat("dd.LL.yyyy. TT")}
+          </span>
+        </p>
         <Card>
           <Card.Body>
-            <Card.Title>Grading results</Card.Title>
+            <Card.Title>Rezultati zadatka</Card.Title>
             <ListGroup variant="flush">
               {gradingResults.map((result, index) => {
                 return <TaskGradingResultItem result={result} index={index} />;

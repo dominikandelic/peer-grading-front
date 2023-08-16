@@ -40,14 +40,14 @@ const SubmissionGradingResultPage = () => {
         </Head>
         <h1>{submissionGradings[0].submission.submission_task.name}</h1>
         <span>
-          {" "}
-          Rok:{" "}
-          {DateTime.fromISO(
-            submissionGradings[0].submission.submission_task.deadline
-          ).toFormat("dd.LL.yyyy. TT")}
+          Upute:{" "}
+          {
+            submissionGradings[0].submission.submission_task.grading
+              .instructions
+          }
         </span>
         <p>
-          <span>
+          <span className="d-block">
             Kolegij:{" "}
             <Link
               className="link"
@@ -55,6 +55,13 @@ const SubmissionGradingResultPage = () => {
             >
               {submissionGradings[0].submission.submission_task.course.name}
             </Link>
+          </span>
+          <span>
+            {" "}
+            Rok:{" "}
+            {DateTime.fromISO(
+              submissionGradings[0].submission.submission_task.deadline
+            ).toFormat("dd.LL.yyyy. TT")}
           </span>
           <a className="d-block" target="_blank" href={url}>
             Pregledaj rad

@@ -22,13 +22,13 @@ const EnrollStudentsPage = () => {
   const courseId = Number(router.query.course_id);
   const onSubmit: SubmitHandler<EnrollStudentArgs> = async (data) => {
     try {
-      await authorizedAxios.post(
+      await authorizedAxios.put(
         `${BASE_URL}/api/courses/${courseId}/enroll-students`,
         {
           student_id: data.studentId,
         }
       );
-      toast.success(`Added student ${data.studentId}`);
+      toast.success(`Student upisan`);
       router.push(`/courses/${courseId}`);
     } catch (e) {
       if (e instanceof AxiosError) {
@@ -40,14 +40,14 @@ const EnrollStudentsPage = () => {
   return (
     <>
       <Head>
-        <title>Enroll students - Peer Grading</title>
-        <meta name="description" content="Peer grading meta desc..." />
+        <title>Upiši studente - PeerGrader</title>
+        <meta name="description" content="PeerGrader meta desc..." />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Container>
         <Row>
           <Col>
-            <h1>Enroll students</h1>
+            <h1>Upiši studente</h1>
           </Col>
         </Row>
         <Col>
@@ -56,8 +56,10 @@ const EnrollStudentsPage = () => {
               <Form.Group className="mb-3">
                 <Form.Label>Student</Form.Label>
                 <Form.Select {...register("studentId")}>
-                  {isLoading && <option>Loading...</option>}
-                  {isError && <option>Error fetching students</option>}
+                  {isLoading && <option>Učitavam...</option>}
+                  {isError && (
+                    <option>Greška prilikom dohvata studenata</option>
+                  )}
                   {students &&
                     students.map((student) => {
                       return (
@@ -71,7 +73,7 @@ const EnrollStudentsPage = () => {
             </Row>
             <Row>
               <Button variant="primary" type="submit">
-                Submit
+                Podnesi
               </Button>
             </Row>
           </Form>

@@ -48,6 +48,11 @@ const LoggedInLinks = ({ router }: { router: NextRouter }) => {
           Odjava
         </NavDropdown.Item>
       </NavDropdown>
+      {user?.is_superuser && (
+        <Link href="/admin" passHref legacyBehavior>
+          <Nav.Link>Admin</Nav.Link>
+        </Link>
+      )}
     </>
   );
 };
@@ -66,7 +71,7 @@ const PublicLinks = ({ router }: { router: NextRouter }) => {
         </Link>
         <Link href="/register/teacher" passHref legacyBehavior>
           <NavDropdown.Item active={router.pathname == "/register/teacher"}>
-            Profesor
+            Nastavnik
           </NavDropdown.Item>
         </Link>
       </NavDropdown>

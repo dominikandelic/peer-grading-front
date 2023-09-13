@@ -66,11 +66,11 @@ const AddCoursePage = () => {
             </Row>
             <Row>
               <Form.Group className="mb-3">
-                <Form.Label>Profesor</Form.Label>
+                <Form.Label>Nastavnik</Form.Label>
                 <Form.Select {...register("teacher_id")}>
                   {isLoading && <option>Učitavam...</option>}
                   {isError && (
-                    <option>Pogreška prilikom dohvaćanja profesora</option>
+                    <option>Pogreška prilikom dohvaćanja nastavnika</option>
                   )}
                   {teachers &&
                     teachers.map((teacher) => {

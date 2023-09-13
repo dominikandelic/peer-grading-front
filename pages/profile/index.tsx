@@ -94,7 +94,7 @@ const ProfileIndexPage = () => {
                     readOnly
                     disabled
                     type="text"
-                    defaultValue={user.is_student ? "Student" : "Profesor"}
+                    defaultValue={user.is_student ? "Student" : "Nastavnik"}
                   />
                 </Form.Group>
               </Row>

@@ -35,7 +35,7 @@ const CourseList = ({ courses }: CourseListProps) => {
               <Card.Body>
                 <Card.Title>{course.name}</Card.Title>
                 <Card.Text>
-                  Profesor:{" "}
+                  Nastavnik:{" "}
                   {course.teacher &&
                     `${course.teacher.first_name} ${course.teacher.last_name}`}
                 </Card.Text>

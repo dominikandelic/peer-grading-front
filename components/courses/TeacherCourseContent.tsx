@@ -41,7 +41,7 @@ const TeacherCourseContent = ({ user }: TeacherCourseContentProps) => {
             <Col>Naziv: {course.name}</Col>
           </Row>
           <Col>
-            Profesor: {course.teacher.first_name} {course.teacher.last_name}
+            Nastavnik: {course.teacher.first_name} {course.teacher.last_name}
           </Col>
           <Row>
             {(course.teacher!.id === user.id || user.is_superuser) && (

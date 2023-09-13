@@ -52,12 +52,12 @@ const RegisterTeacherPage = () => {
     <>
       <Container>
         <Head>
-          <title>Registracija profesora - PeerGrader</title>
+          <title>Registracija nastavnika - PeerGrader</title>
           <meta name="description" content="PeerGrader meta desc..." />
           <link rel="icon" href="/favicon.ico" />
         </Head>
         <Col>
-          <h1>Profesor:</h1>
+          <h1>Nastavnik:</h1>
           <Form onSubmit={handleSubmit(onSubmit)}>
             <Row>
               <Form.Group className="mb-3">

@@ -33,7 +33,7 @@ const StudentCourseContent = ({
           </Row>
           <Row>
             <Col>
-              Profesor: {course.teacher.first_name} {course.teacher.last_name}
+              Nastavnik: {course.teacher.first_name} {course.teacher.last_name}
             </Col>
           </Row>
           <Row>
